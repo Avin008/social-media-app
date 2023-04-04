@@ -1,5 +1,5 @@
-/** @type {import('tailwindcss').Config} */
 const { fontFamily } = require("tailwindcss/defaultTheme");
+/** @type {import('tailwindcss').Config} */
 
 module.exports = {
   content: [
@@ -14,6 +14,10 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-poppins)", ...fontFamily.sans],
+      },
+      colors: {
+        background: "#16181C",
+        brand: "#FCD34D",
       },
     },
   },

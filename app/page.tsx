@@ -1,9 +1,17 @@
+import Banner from "@/components/Banner";
+import LoginForm from "@/components/LoginForm";
+import Navbar from "@/components/Navbar";
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <main>
-      <div className="flex mt-20 flex-col items-center">
-        <h1 className="text-3xl">Hello World</h1>
-        <p>This is where the magic happens!</p>
+    <main className="h-screen bg-[#16181C] flex items-center">
+      <Navbar />
+      <div className="h-96 w-full grid grid-cols-2">
+        <Banner />
+        <div>
+          <LoginForm />
+        </div>
       </div>
     </main>
   );
