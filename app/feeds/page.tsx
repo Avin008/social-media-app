@@ -1,4 +1,5 @@
 import SearchBar from "@/components/SearchBar";
+import SearchList from "@/components/SearchList";
 import Sidebar from "@/components/Sidebar";
 
 const UserFeedsPage = () => {

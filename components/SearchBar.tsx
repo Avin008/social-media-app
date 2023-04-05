@@ -1,3 +1,5 @@
+import SearchList from "./SearchList";
+
 const SearchBar = () => {
   return (
     <div className="relative shadow-sm focus-within:bg-transparent focus-within:border focus-within:border-brand bg-[#282C37] h-10 rounded-md m-2 flex items-center">
@@ -9,6 +11,7 @@ const SearchBar = () => {
       <div className="flex justify-end w-[10%] px-2">
         <span>🔍</span>
       </div>
+      <SearchList />
     </div>
   );
 };
