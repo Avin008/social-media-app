@@ -1,3 +1,4 @@
+import FollowerSuggestion from "@/components/FollowerSuggestion";
 import SearchBar from "@/components/SearchBar";
 import SearchList from "@/components/SearchList";
 import Sidebar from "@/components/Sidebar";
@@ -15,8 +16,9 @@ const UserFeedsPage = () => {
           <Sidebar />
         </div>
         <div className="col-span-6 border border-gray-600"></div>
-        <div className="border border-gray-600 col-span-4">
+        <div className="border border-gray-600 col-span-4 flex flex-col gap-2">
           <SearchBar />
+          <FollowerSuggestion />
         </div>
       </div>
     </main>
