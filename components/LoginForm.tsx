@@ -1,7 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  RefObject,
+} from "react";
 
 type LoginCredentials = {
   email: string;
@@ -14,6 +19,14 @@ const LoginForm = () => {
       email: "",
       password: "",
     });
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const inputHandler = (
     e: React.SyntheticEvent<HTMLInputElement>
@@ -54,6 +67,7 @@ const LoginForm = () => {
             placeholder="johndoe@gmail.com"
             onChange={inputHandler}
             value={loginCredentials.email}
+            ref={inputRef}
           />
         </div>
         <div className="flex flex-col gap-2">
