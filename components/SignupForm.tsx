@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 type SignupCredentials = {
@@ -8,7 +7,11 @@ type SignupCredentials = {
   password: string;
 };
 
-const SignupForm = () => {
+const SignupForm = ({
+  changeFormHandler,
+}: {
+  changeFormHandler: () => void;
+}) => {
   const [signupCredentials, setSignupCredentials] =
     useState<SignupCredentials>({
       username: "",
@@ -87,12 +90,12 @@ const SignupForm = () => {
           </button>
           <span className="mt-2 text-gray-300">
             Already had an Account?{" "}
-            <Link
-              href="/signup"
+            <button
               className="font-semibold text-white hover:underline hover:underline-offset-2"
+              onClick={changeFormHandler}
             >
               Login
-            </Link>
+            </button>
           </span>
         </div>
       </form>

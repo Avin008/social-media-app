@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 type LoginCredentials = {
@@ -8,7 +7,11 @@ type LoginCredentials = {
   password: string;
 };
 
-const LoginForm = () => {
+const LoginForm = ({
+  changeFormHandler,
+}: {
+  changeFormHandler: () => void;
+}) => {
   const [loginCredentials, setLoginCredentials] =
     useState<LoginCredentials>({
       email: "",
@@ -31,13 +34,6 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
-  };
-
-  const guestLogin = () => {
-    setLoginCredentials({
-      email: "johndoe@gmail.com",
-      password: "johndoe@12345",
-    });
   };
 
   const formHandler = (e: React.FormEvent) => {
@@ -82,12 +78,12 @@ const LoginForm = () => {
           </button>
           <span className="mt-2 text-gray-300">
             Don't Have an Account?{" "}
-            <Link
-              href="/signup"
+            <button
               className="font-semibold text-white hover:underline hover:underline-offset-2"
+              onClick={changeFormHandler}
             >
               Join Now
-            </Link>
+            </button>
           </span>
         </div>
       </form>
