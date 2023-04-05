@@ -37,7 +37,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="border border-[#3F3D56] rounded-md h-full mx-auto w-[70%]">
+    <div className="border border-[#3F3D56] shadow-md rounded-md pb-5 h-fit mx-auto w-[70%]">
       <h1 className="text-2xl text-center mt-5 text-white">
         Login
       </h1>
@@ -48,7 +48,7 @@ const LoginForm = () => {
         <div className="flex flex-col gap-2">
           <label id="email">Email</label>
           <input
-            className="p-2 px-3 bg-transparent rounded-md border-gray-400 border"
+            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
             type="email"
             name="email"
             placeholder="johndoe@gmail.com"
@@ -59,7 +59,7 @@ const LoginForm = () => {
         <div className="flex flex-col gap-2">
           <label id="email">Password</label>
           <input
-            className="p-2 px-3 bg-transparent border rounded-md border-gray-400"
+            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
             type="password"
             name="password"
             placeholder="**********"
@@ -68,18 +68,9 @@ const LoginForm = () => {
           />
         </div>
         <div className="flex flex-col gap-3">
-          <button className="bg-brand p-2 rounded-md text-black">
-            Login
+          <button className="bg-brand p-2 font-bold rounded-md text-white">
+            LOGIN
           </button>
-          <button
-            onClick={guestLogin}
-            className="border border-brand text-brand p-2 rounded-md"
-          >
-            Login As Guest
-          </button>
-          <Link className="text-center mb-5" href="/signup">
-            Create New Account
-          </Link>
         </div>
       </form>
     </div>

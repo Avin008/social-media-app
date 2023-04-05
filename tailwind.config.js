@@ -16,8 +16,8 @@ module.exports = {
         sans: ["var(--font-poppins)", ...fontFamily.sans],
       },
       colors: {
-        background: "#16181C",
-        brand: "#FCD34D",
+        background: "#282C37",
+        brand: "#595aff",
       },
     },
   },

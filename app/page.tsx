@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="h-screen bg-[#16181C] flex items-center">
+    <main className="h-screen bg-background flex items-center">
       <Navbar />
       <div className="h-96 w-full grid grid-cols-2">
         <Banner />
