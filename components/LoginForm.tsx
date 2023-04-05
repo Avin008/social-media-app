@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useState,
-  useRef,
-  useEffect,
-  RefObject,
-} from "react";
+import { useState, useRef, useEffect } from "react";
 
 type LoginCredentials = {
   email: string;
@@ -85,6 +80,15 @@ const LoginForm = () => {
           <button className="bg-brand shadow-sm p-2 font-bold rounded-md text-white">
             LOGIN
           </button>
+          <span className="mt-2 text-gray-300">
+            Don't Have an Account?{" "}
+            <Link
+              href="/signup"
+              className="font-semibold text-white hover:underline hover:underline-offset-2"
+            >
+              Join Now
+            </Link>
+          </span>
         </div>
       </form>
     </div>
