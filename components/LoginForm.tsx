@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const LoginForm = () => {
   return (
     <div className="border border-[#3F3D56] rounded-md h-full mx-auto w-[70%]">
@@ -21,11 +23,16 @@ const LoginForm = () => {
             placeholder="**********"
           />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-3">
           <button className="bg-brand p-2 rounded-md text-black">
             Login
           </button>
-          <button>Login As Guest</button>
+          <button className="border border-brand text-brand p-2 rounded-md">
+            Login As Guest
+          </button>
+          <Link className="text-center mb-5" href="/signup">
+            Create New Account
+          </Link>
         </div>
       </form>
     </div>
