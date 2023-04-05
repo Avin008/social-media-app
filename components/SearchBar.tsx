@@ -11,7 +11,7 @@ const SearchBar = () => {
       <div className="flex justify-end w-[10%] px-2">
         <span>🔍</span>
       </div>
-      <SearchList />
+      {false && <SearchList />}
     </div>
   );
 };
