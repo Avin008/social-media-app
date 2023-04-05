@@ -82,7 +82,7 @@ const LoginForm = () => {
           />
         </div>
         <div className="flex flex-col gap-3">
-          <button className="bg-brand p-2 font-bold rounded-md text-white">
+          <button className="bg-brand shadow-sm p-2 font-bold rounded-md text-white">
             LOGIN
           </button>
         </div>
