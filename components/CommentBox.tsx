@@ -1,8 +1,8 @@
 const CommentBox = () => {
   return (
-    <div className="border w-full rounded-full h-full">
+    <div className="border w-full rounded-md h-full">
       <input
-        className="w-full h-full rounded-full bg-transparent px-3"
+        className="w-full h-full rounded-md bg-transparent px-2"
         type="text"
         placeholder="comment here..."
       />
