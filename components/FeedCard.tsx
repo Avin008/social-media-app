@@ -40,7 +40,7 @@ const FeedCard = ({
       </div>
       <div className="">{feedData.text}</div>
       {feedData.postImg && (
-        <div className="relative h-80 rounded-md border border-gray-500 w-full">
+        <div className="relative h-80 rounded-md border border-gray-800 w-full">
           <Image
             className="rounded-md"
             src={feedData.postImg}
