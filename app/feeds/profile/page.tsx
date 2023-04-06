@@ -1,8 +1,11 @@
-import Avatar from "@/components/Avatar";
-import Link from "next/link";
+import UserCard from "@/components/UserCard";
 
 const ProfilePage = () => {
-  return <div></div>;
+  return (
+    <div className="p-2">
+      <UserCard />
+    </div>
+  );
 };
 
 export default ProfilePage;
