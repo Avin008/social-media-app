@@ -10,10 +10,15 @@ const UserCard = () => {
           width="100px"
         />
         <div className="flex flex-col text-white leading-5">
-          <span>Avinash Mahananda</span>
+          <span>full name</span>
           <span className="text-xs text-gray-400">
-            @avinash008
+            @username
           </span>
+          <div className="flex text-xs gap-3 mt-2">
+            <span>0 Posts</span>
+            <span>0 Followers</span>
+            <span>0 Followings</span>
+          </div>
         </div>
       </div>
       <div>
