@@ -1,11 +1,8 @@
+import Avatar from "@/components/Avatar";
 import Link from "next/link";
 
 const ProfilePage = () => {
-  return (
-    <div>
-      <h1 className="text-white">Profile Page</h1>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default ProfilePage;

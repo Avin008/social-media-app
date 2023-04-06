@@ -1,8 +1,22 @@
 import Image from "next/image";
 
-const Avatar = ({ image }: { image: string }) => {
+const Avatar = ({
+  image,
+  height,
+  width,
+}: {
+  image: string;
+  height?: string;
+  width?: string;
+}) => {
   return (
-    <div className="w-10 border h-10 relative rounded-full">
+    <div
+      style={{
+        width: width ? width : "40px",
+        height: height ? height : "40px",
+      }}
+      className="border relative rounded-full"
+    >
       <Image
         className="rounded-full"
         src={image}
