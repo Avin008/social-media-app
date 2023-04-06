@@ -1,3 +1,4 @@
+import CreatePostCard from "@/components/CreatePostCard";
 import FeedCard from "@/components/FeedCard";
 
 const data = [
@@ -25,12 +26,11 @@ const data = [
 
 const UserFeedsPage = () => {
   return (
-    <div>
-      <h1 className="text-white m-2 flex flex-col gap-2">
-        {data.map((x) => (
-          <FeedCard feedData={x} />
-        ))}
-      </h1>
+    <div className="text-white m-2 flex flex-col gap-2">
+      <CreatePostCard />
+      {data.map((x) => (
+        <FeedCard feedData={x} />
+      ))}
     </div>
   );
 };
