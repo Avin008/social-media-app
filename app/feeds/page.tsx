@@ -1,11 +1,34 @@
 import FeedCard from "@/components/FeedCard";
 
+const data = [
+  {
+    userPhoto: "/social.svg",
+    username: "aangAvatar",
+    fullName: "Avatar Aang",
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, delectus!",
+  },
+  {
+    userPhoto: "/social.svg",
+    username: "aangAvatar",
+    fullName: "Avatar Aang",
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, delectus!",
+    postImg: "./social.svg",
+  },
+  {
+    userPhoto: "/social.svg",
+    username: "aangAvatar",
+    fullName: "Avatar Aang",
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, delectus!",
+    postImg: "./social.svg",
+  },
+];
+
 const UserFeedsPage = () => {
   return (
     <div>
       <h1 className="text-white m-2 flex flex-col gap-2">
-        {[1, 2, 3, 4, 5, 6].map((x) => (
-          <FeedCard />
+        {data.map((x) => (
+          <FeedCard feedData={x} />
         ))}
       </h1>
     </div>
