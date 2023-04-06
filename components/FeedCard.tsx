@@ -2,6 +2,7 @@ import Avatar from "./Avatar";
 import UserInfo from "./userInfo";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
+import UserComment from "./UserComment";
 
 const FeedCard = ({
   feedData,
@@ -35,6 +36,12 @@ const FeedCard = ({
         <PostImage postImg={feedData.postImg} />
       )}
       <PostActions />
+      <UserComment
+        comment={{
+          comment: "this is just a comment",
+          username: "gohan",
+        }}
+      />
     </div>
   );
 };
