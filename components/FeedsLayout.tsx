@@ -15,7 +15,7 @@ const FeedsLayout = ({
           <Brand />
           <Sidebar />
         </div>
-        <div className="col-span-6 border border-gray-600">
+        <div className="col-span-6 border min-h-screen border-gray-600">
           {children}
         </div>
         <div className="border-gray-600 col-span-4 flex flex-col gap-2 h-fit sticky top-1">
