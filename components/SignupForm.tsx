@@ -98,6 +98,7 @@ const SignupForm = ({
             type="text"
             name="fullname"
             placeholder="John Doe"
+            ref={inputRef}
             onChange={inputHandler}
             value={signupCredentials.fullname}
             required
@@ -112,7 +113,6 @@ const SignupForm = ({
             placeholder="johndoe@gmail.com"
             onChange={inputHandler}
             value={signupCredentials.email}
-            ref={inputRef}
             required
           />
         </div>
