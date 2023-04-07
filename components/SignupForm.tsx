@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type SignupCredentials = {
   username: string;
@@ -41,6 +42,7 @@ const SignupForm = ({
   };
 
   const router = useRouter();
+  const addAuth = useAuthStore((store) => store.addAuth);
 
   const { isLoading, mutate } = useMutation(
     async () => {
@@ -51,7 +53,10 @@ const SignupForm = ({
       }).then((res) => res.json());
     },
     {
-      onSuccess: (data: { message: string }) => {
+      onSuccess: (data: {
+        message: string;
+        data: { token: string };
+      }) => {
         if (data.message === "email already exist") {
           toast.error(data.message);
         } else if (
@@ -62,6 +67,7 @@ const SignupForm = ({
           data.message === "user created successfully"
         ) {
           toast.success(data.message);
+          addAuth(data.data.token);
           router.push("/feeds");
         }
       },

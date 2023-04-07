@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type LoginCredentials = {
   email: string;
@@ -40,6 +41,7 @@ const LoginForm = ({
   };
 
   const router = useRouter();
+  const addAuth = useAuthStore((store) => store.addAuth);
 
   const { isLoading, mutate } = useMutation(
     async () => {
@@ -50,7 +52,10 @@ const LoginForm = ({
       }).then((res) => res.json());
     },
     {
-      onSuccess: (data: { message: string }) => {
+      onSuccess: (data: {
+        message: string;
+        data: { token: string };
+      }) => {
         if (data.message === "invalid password") {
           toast.error(data.message);
         } else if (data.message === "user doesn't exist") {
@@ -59,6 +64,7 @@ const LoginForm = ({
           data.message === "user successfully logged in"
         ) {
           toast.success(data.message);
+          addAuth(data.data.token);
           router.push("/feeds");
         }
       },
