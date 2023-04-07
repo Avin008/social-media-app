@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 
 type SignupCredentials = {
-  username: string;
+  fullname: string;
   email: string;
   password: string;
 };
@@ -18,7 +18,7 @@ const SignupForm = ({
 }) => {
   const [signupCredentials, setSignupCredentials] =
     useState<SignupCredentials>({
-      username: "",
+      fullname: "",
       email: "",
       password: "",
     });
@@ -92,6 +92,18 @@ const SignupForm = ({
         className="text-white space-y-5 mt-5 px-5"
       >
         <div className="flex flex-col gap-2">
+          <label id="email">Full Name</label>
+          <input
+            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
+            type="text"
+            name="fullname"
+            placeholder="John Doe"
+            onChange={inputHandler}
+            value={signupCredentials.fullname}
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
           <label id="email">Email</label>
           <input
             className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
@@ -104,18 +116,7 @@ const SignupForm = ({
             required
           />
         </div>
-        <div className="flex flex-col gap-2">
-          <label id="email">Username</label>
-          <input
-            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
-            type="text"
-            name="username"
-            placeholder="johndoe779"
-            onChange={inputHandler}
-            value={signupCredentials.username}
-            required
-          />
-        </div>
+
         <div className="flex flex-col gap-2">
           <label id="email">Password</label>
           <input
