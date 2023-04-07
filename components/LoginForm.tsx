@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import { useMutation } from "react-query";
+import { useRouter } from "next/navigation";
 
 type LoginCredentials = {
   email: string;
@@ -36,8 +39,38 @@ const LoginForm = ({
     }));
   };
 
+  const router = useRouter();
+
+  const { isLoading, mutate } = useMutation(
+    async () => {
+      return fetch("http://localhost:3080/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginCredentials),
+      }).then((res) => res.json());
+    },
+    {
+      onSuccess: (data: { message: string }) => {
+        if (data.message === "invalid password") {
+          toast.error(data.message);
+        } else if (data.message === "user doesn't exist") {
+          toast.error(data.message);
+        } else if (
+          data.message === "user successfully logged in"
+        ) {
+          toast.success(data.message);
+          router.push("/feeds");
+        }
+      },
+      onError: () => {
+        toast.error("something went wrong");
+      },
+    }
+  );
+
   const formHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    mutate();
   };
 
   return (
@@ -59,6 +92,7 @@ const LoginForm = ({
             onChange={inputHandler}
             value={loginCredentials.email}
             ref={inputRef}
+            required
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -70,11 +104,15 @@ const LoginForm = ({
             placeholder="**********"
             onChange={inputHandler}
             value={loginCredentials.password}
+            required
           />
         </div>
         <div className="flex flex-col gap-3">
-          <button className="bg-brand shadow-sm p-2 font-bold rounded-md text-white">
-            LOGIN
+          <button
+            disabled={isLoading}
+            className="bg-brand shadow-sm p-2 font-bold rounded-md text-white"
+          >
+            {isLoading ? "loading..." : "LOGIN"}
           </button>
           <span className="mt-2 text-gray-300">
             Don't Have an Account?{" "}

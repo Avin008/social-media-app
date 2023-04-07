@@ -1,4 +1,3 @@
-import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import Toast from "@/components/Toast";
