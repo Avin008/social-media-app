@@ -1,5 +1,8 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import { useMutation } from "react-query";
+import { useRouter } from "next/navigation";
 
 type SignupCredentials = {
   username: string;
@@ -37,8 +40,40 @@ const SignupForm = ({
     }));
   };
 
+  const router = useRouter();
+
+  const { isLoading, mutate } = useMutation(
+    async () => {
+      return fetch("http://localhost:3080/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signupCredentials),
+      }).then((res) => res.json());
+    },
+    {
+      onSuccess: (data: { message: string }) => {
+        if (data.message === "email already exist") {
+          toast.error(data.message);
+        } else if (
+          data.message === "username already taken"
+        ) {
+          toast.error(data.message);
+        } else if (
+          data.message === "user created successfully"
+        ) {
+          toast.success(data.message);
+          router.push("/feeds");
+        }
+      },
+      onError: () => {
+        toast.error("something went wrong");
+      },
+    }
+  );
+
   const formHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    mutate();
   };
 
   return (
@@ -60,6 +95,7 @@ const SignupForm = ({
             onChange={inputHandler}
             value={signupCredentials.email}
             ref={inputRef}
+            required
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -70,7 +106,8 @@ const SignupForm = ({
             name="username"
             placeholder="johndoe779"
             onChange={inputHandler}
-            value={signupCredentials.password}
+            value={signupCredentials.username}
+            required
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -82,11 +119,15 @@ const SignupForm = ({
             placeholder="**********"
             onChange={inputHandler}
             value={signupCredentials.password}
+            required
           />
         </div>
         <div className="flex flex-col gap-3">
-          <button className="bg-brand shadow-sm p-2 font-bold rounded-md text-white">
-            SIGN UP
+          <button
+            disabled={isLoading}
+            className="bg-brand shadow-sm p-2 font-bold rounded-md text-white"
+          >
+            {isLoading ? "loading..." : "SIGN UP"}
           </button>
           <span className="mt-2 text-gray-300">
             Already had an Account?{" "}
