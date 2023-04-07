@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import Toast from "@/components/Toast";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
       className={`${poppins.variable} font-sans`}
     >
       <body>
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
         <Toast />
       </body>
     </html>
