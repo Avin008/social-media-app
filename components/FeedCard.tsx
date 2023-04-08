@@ -87,12 +87,14 @@ const FeedCard = ({ post }: { post: Post }) => {
       <div className="">{post.post_text}</div>
       {post.postImg && <PostImage postImg={post.postImg} />}
       <PostActions post={post} />
-      {/* <UserComment
-        comment={{
-          comment: "this is just a comment",
-          username: "gohan",
-        }}
-      /> */}
+      {post.comments.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <span className="text-sm">Comments</span>
+          {post.comments.map((comment) => (
+            <UserComment comment={comment} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

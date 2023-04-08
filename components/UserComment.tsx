@@ -3,7 +3,12 @@ import Avatar from "./Avatar";
 const UserComment = ({
   comment,
 }: {
-  comment: { username: string; comment: string };
+  comment: {
+    user_id: string;
+    username: string;
+    fullname: string;
+    comment: string;
+  };
 }) => {
   return (
     <div className="items-center flex gap-1">
