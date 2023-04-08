@@ -54,7 +54,7 @@ const LoginForm = ({
     {
       onSuccess: (data: {
         message: string;
-        data: { token: string };
+        data: { token: string; userId: string };
       }) => {
         if (data.message === "invalid password") {
           toast.error(data.message);
@@ -64,7 +64,7 @@ const LoginForm = ({
           data.message === "user successfully logged in"
         ) {
           toast.success(data.message);
-          addAuth(data.data.token);
+          addAuth(data.data.token, data.data.userId);
           router.push("/feeds");
         }
       },

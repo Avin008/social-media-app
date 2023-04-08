@@ -55,7 +55,7 @@ const SignupForm = ({
     {
       onSuccess: (data: {
         message: string;
-        data: { token: string };
+        data: { token: string; userId: string };
       }) => {
         if (data.message === "email already exist") {
           toast.error(data.message);
@@ -67,7 +67,7 @@ const SignupForm = ({
           data.message === "user created successfully"
         ) {
           toast.success(data.message);
-          addAuth(data.data.token);
+          addAuth(data.data.token, data.data.userId);
           router.push("/feeds");
         }
       },
