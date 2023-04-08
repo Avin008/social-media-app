@@ -7,7 +7,7 @@ import { useMutation } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 
 const FeedCard = ({ post }: { post: Post }) => {
-  const token = useAuthStore((store) => store.token);
+  const { token, userId } = useAuthStore((store) => store);
 
   const { data, isLoading, isError, mutate } = useMutation(
     async () => {
@@ -57,19 +57,14 @@ const FeedCard = ({ post }: { post: Post }) => {
         <div>
           <ul className="text-xs flex gap-2 bg-[#282C37] px-2 py-1 rounded-full">
             <li>
-              {post.likes.includes(
-                "cyTL0avVUadXygdiUtceG"
-              ) && (
+              {post.likes.includes(userId) ? (
                 <button
                   className="px-2"
                   onClick={() => unLikePost()}
                 >
                   unlike post
                 </button>
-              )}
-              {!post.likes.includes(
-                "cyTL0avVUadXygdiUtceG"
-              ) && (
+              ) : (
                 <button
                   className="px-2"
                   onClick={() => likePost()}
