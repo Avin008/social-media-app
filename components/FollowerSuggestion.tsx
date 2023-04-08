@@ -1,24 +1,13 @@
-import Image from "next/image";
+"use client";
 import SuggestedFollowerCard from "./SuggestedFollowerCard";
+import { useQuery } from "react-query";
 
 const FollowerSuggestion = () => {
-  const suggestedUsers = [
-    {
-      photo: "/social.svg",
-      username: "aang",
-      fullName: "newAvatar",
-    },
-    {
-      photo: "/social.svg",
-      username: "aang",
-      fullName: "newAvatar",
-    },
-    {
-      photo: "/social.svg",
-      username: "aang",
-      fullName: "newAvatar",
-    },
-  ];
+  const { data } = useQuery(["users"], async () => {
+    return fetch("http://localhost:3080/user", {
+      method: "GET",
+    }).then((res) => res.json());
+  });
 
   return (
     <div className=" h-fit px-3 py-3 mx-2 rounded-md bg-[#282C37]">
@@ -28,10 +17,8 @@ const FollowerSuggestion = () => {
         </span>
       </div>
       <ul className="mt-2">
-        {suggestedUsers.map((user) => (
-          <li>
-            <SuggestedFollowerCard suggestedUser={user} />
-          </li>
+        {data?.data?.map((x: any) => (
+          <SuggestedFollowerCard suggestedUser={x} />
         ))}
       </ul>
     </div>
