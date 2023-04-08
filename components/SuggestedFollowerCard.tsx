@@ -1,4 +1,7 @@
+"use client";
+import { useAuthStore } from "@/store/useAuthStore";
 import Avatar from "./Avatar";
+import { useMutation } from "react-query";
 
 const SuggestedFollowerCard = ({
   suggestedUser,
@@ -7,8 +10,29 @@ const SuggestedFollowerCard = ({
     photo: string;
     username: string;
     fullname: string;
+    _id: string;
   };
 }) => {
+  const token = useAuthStore((store) => store.token);
+
+  const { mutate } = useMutation(
+    async () => {
+      return fetch("http://localhost:3080/user/follow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: token,
+          followedUserId: suggestedUser._id,
+        }),
+      }).then((res) => res.json());
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
   return (
     <div className="h-14 rounded-md flex gap-3 justify-between items-center px-2">
       <div className="flex gap-3">
@@ -22,7 +46,10 @@ const SuggestedFollowerCard = ({
           </span>
         </div>
       </div>
-      <button className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full">
+      <button
+        onClick={() => mutate()}
+        className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
+      >
         follow
       </button>
     </div>
