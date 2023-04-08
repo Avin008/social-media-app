@@ -2,18 +2,14 @@ import Avatar from "./Avatar";
 import CommentBox from "./CommentBox";
 import PostEngagementCount from "./PostEngagementCount";
 
-const PostActions = ({
-  likesCount,
-}: {
-  likesCount: number;
-}) => {
+const PostActions = ({ post }: { post: Post }) => {
   return (
     <div className="flex items-center gap-2">
       <PostEngagementCount
-        likesCount={likesCount}
-        commentCount={0}
+        likesCount={post.likes.length}
+        commentCount={post.comments.length}
       />
-      <CommentBox />
+      <CommentBox post={post} />
       <button className="h-full w-10 text-2xl">❤️</button>
     </div>
   );

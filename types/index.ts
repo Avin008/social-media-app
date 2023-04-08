@@ -7,4 +7,10 @@ type Post = {
   post_text: string;
   postImg?: string;
   likes: string[];
+  comments: {
+    user_id: string;
+    username: string;
+    fullname: string;
+    comment: string;
+  }[];
 };
