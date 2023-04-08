@@ -4,25 +4,15 @@ import PostImage from "./PostImage";
 import PostActions from "./PostActions";
 import UserComment from "./UserComment";
 
-const FeedCard = ({
-  feedData,
-}: {
-  feedData: {
-    userPhoto: string;
-    username: string;
-    fullName: string;
-    text: string;
-    postImg?: string;
-  };
-}) => {
+const FeedCard = ({ post }: { post: Post }) => {
   return (
     <div className="border p-4 border-gray-600 h-fit relative rounded-md space-y-3">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
-          <Avatar image={feedData.userPhoto} />
+          <Avatar image={post.userPhoto} />
           <UserInfo
-            username={feedData.username}
-            fullName={feedData.fullName}
+            username={post.username}
+            fullName={post.fullname}
           />
         </div>
         <div>
@@ -31,17 +21,17 @@ const FeedCard = ({
           </span>
         </div>
       </div>
-      <div className="">{feedData.text}</div>
-      {feedData.postImg && (
-        <PostImage postImg={feedData.postImg} />
-      )}
+      <div className="">{post.post_text}</div>
+      {/* {post.postImg && (
+        <PostImage postImg={post.p} />
+      )} */}
       <PostActions />
-      <UserComment
+      {/* <UserComment
         comment={{
           comment: "this is just a comment",
           username: "gohan",
         }}
-      />
+      /> */}
     </div>
   );
 };
