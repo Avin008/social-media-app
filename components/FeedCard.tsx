@@ -22,10 +22,8 @@ const FeedCard = ({ post }: { post: Post }) => {
         </div>
       </div>
       <div className="">{post.post_text}</div>
-      {/* {post.postImg && (
-        <PostImage postImg={post.p} />
-      )} */}
-      <PostActions />
+      {post.postImg && <PostImage postImg={post.postImg} />}
+      <PostActions likesCount={post.likes.length} />
       {/* <UserComment
         comment={{
           comment: "this is just a comment",

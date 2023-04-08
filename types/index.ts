@@ -5,4 +5,6 @@ type Post = {
   fullname: string;
   post_id: string;
   post_text: string;
+  postImg?: string;
+  likes: string[];
 };
