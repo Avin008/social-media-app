@@ -50,22 +50,26 @@ const FeedCard = ({ post }: { post: Post }) => {
           {togglePostOptions && (
             <div className="absolute w-48 top-5 right-0">
               <ul className="text-xs flex flex-col gap-2 bg-[#282C37] py-1 rounded-md">
-                <li>
-                  <button
-                    className="p-1 hover:bg-brand w-full"
-                    onClick={() => mutate()}
-                  >
-                    remove post
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="px-2 w-full p-1 hover:bg-brand"
-                    onClick={() => mutate()}
-                  >
-                    unfollow
-                  </button>
-                </li>
+                {post.user_id === userId && (
+                  <li>
+                    <button
+                      className="p-1 hover:bg-brand w-full"
+                      onClick={() => mutate()}
+                    >
+                      remove post
+                    </button>
+                  </li>
+                )}
+                {post.user_id !== userId && (
+                  <li>
+                    <button
+                      className="px-2 w-full p-1 hover:bg-brand"
+                      onClick={() => mutate()}
+                    >
+                      unfollow
+                    </button>
+                  </li>
+                )}
               </ul>
             </div>
           )}
