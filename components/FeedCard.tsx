@@ -5,8 +5,13 @@ import PostActions from "./PostActions";
 import UserComment from "./UserComment";
 import { useMutation } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
+import { AiOutlineEllipsis } from "react-icons/ai";
+import { useState } from "react";
 
 const FeedCard = ({ post }: { post: Post }) => {
+  const [togglePostOptions, setTogglePostOptions] =
+    useState<boolean>(false);
+
   const { token, userId } = useAuthStore((store) => store);
 
   const { data, isLoading, isError, mutate } = useMutation(
@@ -32,17 +37,38 @@ const FeedCard = ({ post }: { post: Post }) => {
             fullName={post.fullname}
           />
         </div>
-        <div>
-          <ul className="text-xs flex gap-2 bg-[#282C37] px-2 py-1 rounded-full">
-            <li>
-              <button
-                className="px-2"
-                onClick={() => mutate()}
-              >
-                remove post
-              </button>
-            </li>
-          </ul>
+        <div className="relative">
+          <span>
+            <button
+              onClick={() =>
+                setTogglePostOptions((prev) => !prev)
+              }
+            >
+              <AiOutlineEllipsis size={25} />
+            </button>
+          </span>
+          {togglePostOptions && (
+            <div className="absolute w-48 top-5 right-0">
+              <ul className="text-xs flex flex-col gap-2 bg-[#282C37] py-1 rounded-md">
+                <li>
+                  <button
+                    className="p-1 hover:bg-brand w-full"
+                    onClick={() => mutate()}
+                  >
+                    remove post
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="px-2 w-full p-1 hover:bg-brand"
+                    onClick={() => mutate()}
+                  >
+                    unfollow
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
       <div className="">{post.post_text}</div>

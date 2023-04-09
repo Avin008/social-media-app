@@ -28,9 +28,9 @@ const CommentBox = ({ post }: { post: Post }) => {
   );
 
   return (
-    <div className="border flex w-full  items-center rounded-md h-full">
+    <div className="focus-within:border focus-within:border-brand border flex w-full  items-center rounded-md h-full">
       <input
-        className="w-full h-full rounded-md bg-transparent px-2 p-1"
+        className="w-full h-full outline-none rounded-md bg-transparent px-2 p-1"
         type="text"
         placeholder="comment here..."
         value={comment}
@@ -38,8 +38,11 @@ const CommentBox = ({ post }: { post: Post }) => {
           e: React.SyntheticEvent<HTMLInputElement>
         ) => setComment(e.currentTarget.value)}
       />
-      <button onClick={() => mutate()} className="mx-2">
-        💬
+      <button
+        onClick={() => mutate()}
+        className="mx-2 text-xs text-brand"
+      >
+        post
       </button>
     </div>
   );
