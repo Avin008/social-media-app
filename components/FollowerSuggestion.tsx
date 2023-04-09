@@ -23,7 +23,10 @@ const FollowerSuggestion = () => {
       </div>
       <ul className="mt-2">
         {data?.data?.map((x: any) => (
-          <SuggestedFollowerCard suggestedUser={x} />
+          <SuggestedFollowerCard
+            key={x._id}
+            suggestedUser={x}
+          />
         ))}
       </ul>
     </div>
