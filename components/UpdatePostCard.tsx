@@ -27,29 +27,34 @@ const UpdatePostCard = ({
 
   const router = useRouter();
 
-  // const { isLoading, data, mutate } = useMutation(
-  //   async () => {
-  //     return fetch("http://localhost:3080/post", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         token: token,
-  //         postText: post.postText,
-  //       }),
-  //     }).then((res) => res.json());
-  //   },
-  //   {
-  //     onSuccess: (data: { message: string; data: any }) => {
-  //       setPost({ postText: "" });
-  //       if (data.message === "post created successfully") {
-  //         toast.success(data.message);
-  //       }
-  //     },
-  //     onError: () => {
-  //       toast.error("something went wrong");
-  //     },
-  //   }
-  // );
+  const { isLoading, data, mutate } = useMutation(
+    async () => {
+      return fetch("http://localhost:3080/post/edit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: token,
+          postText: post.post_text,
+          postId: post.post_id,
+        }),
+      }).then((res) => res.json());
+    },
+    {
+      onSuccess: (data: { message: string; data: any }) => {
+        setUpdatePost((prev) => ({
+          ...prev,
+          post_text: "",
+        }));
+        closeUpdatePostHandler();
+        if (data.message === "post created successfully") {
+          toast.success(data.message);
+        }
+      },
+      onError: () => {
+        toast.error("something went wrong");
+      },
+    }
+  );
 
   return (
     <div className="h-fit p-2">
@@ -77,7 +82,7 @@ const UpdatePostCard = ({
           accept=".png,.jpg,.jpeg"
         />
         <button
-          // onClick={() => toggleEditPostModal()}
+          onClick={() => mutate()}
           className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
         >
           update post
