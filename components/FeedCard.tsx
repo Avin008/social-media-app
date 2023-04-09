@@ -1,3 +1,4 @@
+"use client";
 import Avatar from "./Avatar";
 import UserInfo from "./userInfo";
 import PostImage from "./PostImage";
@@ -7,10 +8,18 @@ import { useMutation } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useState } from "react";
+import UpdatePostCard from "./UpdatePostCard";
 
 const FeedCard = ({ post }: { post: Post }) => {
   const [togglePostOptions, setTogglePostOptions] =
     useState<boolean>(false);
+
+  const [toggleEditPostModal, setToggleEditPostModal] =
+    useState<boolean>(false);
+
+  const closeUpdatePostHandler = () => {
+    setToggleEditPostModal((prev) => !prev);
+  };
 
   const { token, userId } = useAuthStore((store) => store);
 
@@ -54,7 +63,9 @@ const FeedCard = ({ post }: { post: Post }) => {
                   <li>
                     <button
                       className="px-2 w-full p-1 hover:bg-brand"
-                      onClick={() => mutate()}
+                      onClick={() =>
+                        closeUpdatePostHandler()
+                      }
                     >
                       edit post
                     </button>
@@ -94,6 +105,18 @@ const FeedCard = ({ post }: { post: Post }) => {
           {post.comments.map((comment) => (
             <UserComment comment={comment} />
           ))}
+        </div>
+      )}
+      {toggleEditPostModal && (
+        <div className="fixed z-50 top-0 flex items-center justify-center bottom-0 left-0 right-0 bg-black/60">
+          <div className="w-[45%] bg-[#282C37] p-2 rounded-md">
+            <UpdatePostCard
+              closeUpdatePostHandler={
+                closeUpdatePostHandler
+              }
+              post={post}
+            />
+          </div>
         </div>
       )}
     </div>
