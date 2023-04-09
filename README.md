@@ -1,38 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Picco - A Social Media App</h1>
+
+<h2>Features</h2>
+<ul>
+<li>Authentication - Login / Signup using JSON Web Tokens (JWT)</li>
+<li>Feeds</li>
+<li>Create / Edit / Update / Delete Post</li>
+<li>Like / unlike / Comment on post</li>
+<li>Follow / Unfollow Users</li>
+<li>User profile page</li>
+<li>Edit user profile</li>
+<li>Follower Suggestions</li>
+<li>Search Users</li>
+<li>Explore Page</li>
+</ul>
 
 ## Getting Started
 
-First, run the development server:
+- Clone this project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+https://github.com/Avin008/social-media-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd social-media-app
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Install dependencies
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+  npm install / npm i
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Before you start running it locally
 
-## Learn More
+create a .env.local file at the root of the project
 
-To learn more about Next.js, take a look at the following resources:
+set NEXT_PUBLIC_URL=URL
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Start the server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+  npm run dev
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2>Technologies used</h2>
+<ul>
+<li>NEXT JS</li>
+<li>TypeScript</li>
+<li>Zustand</li>
+<li>React Query</li>
+<li>Tailwind Css</li>
+</ul>
