@@ -103,7 +103,10 @@ const FeedCard = ({ post }: { post: Post }) => {
         <div className="flex flex-col gap-2">
           <span className="text-sm">Comments</span>
           {post.comments.map((comment) => (
-            <UserComment comment={comment} />
+            <UserComment
+              key={comment.user_id}
+              comment={comment}
+            />
           ))}
         </div>
       )}

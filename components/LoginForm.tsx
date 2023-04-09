@@ -121,7 +121,7 @@ const LoginForm = ({
             {isLoading ? "loading..." : "LOGIN"}
           </button>
           <span className="mt-2 text-gray-300">
-            Don't Have an Account?{" "}
+            Don&apos;t Have an Account?{" "}
             <button
               className="font-semibold text-white hover:underline hover:underline-offset-2"
               onClick={changeFormHandler}
