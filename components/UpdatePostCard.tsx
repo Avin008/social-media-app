@@ -29,15 +29,18 @@ const UpdatePostCard = ({
 
   const { isLoading, data, mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/post/edit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: token,
-          postText: post.post_text,
-          postId: post.post_id,
-        }),
-      }).then((res) => res.json());
+      return fetch(
+        `${process.env.NEXT_PUBLIC_URL}/post/edit`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: token,
+            postText: post.post_text,
+            postId: post.post_id,
+          }),
+        }
+      ).then((res) => res.json());
     },
     {
       onSuccess: (data: { message: string; data: any }) => {

@@ -11,11 +11,14 @@ const ProfilePage = () => {
   const { data, isLoading } = useQuery(
     ["user"],
     async () => {
-      return fetch("http://localhost:3080/user/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: dynamicPath }),
-      }).then((res) => res.json());
+      return fetch(
+        `${process.env.NEXT_PUBLIC_URL}/user/user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: dynamicPath }),
+        }
+      ).then((res) => res.json());
     }
   );
 

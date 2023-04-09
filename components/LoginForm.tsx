@@ -45,11 +45,14 @@ const LoginForm = ({
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginCredentials),
-      }).then((res) => res.json());
+      return fetch(
+        `${process.env.NEXT_PUBLIC_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginCredentials),
+        }
+      ).then((res) => res.json());
     },
     {
       onSuccess: (data: {

@@ -10,15 +10,18 @@ const CommentBox = ({ post }: { post: Post }) => {
 
   const { mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/post/comment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: token,
-          postId: post.post_id,
-          comment: comment,
-        }),
-      });
+      return fetch(
+        `${process.env.NEXT_PUBLIC_URL}/post/comment`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: token,
+            postId: post.post_id,
+            comment: comment,
+          }),
+        }
+      );
     },
     {
       onSuccess: () => {

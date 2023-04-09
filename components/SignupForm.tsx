@@ -46,11 +46,14 @@ const SignupForm = ({
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signupCredentials),
-      }).then((res) => res.json());
+      return fetch(
+        `${process.env.NEXT_PUBLIC_URL}/auth/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(signupCredentials),
+        }
+      ).then((res) => res.json());
     },
     {
       onSuccess: (data: {

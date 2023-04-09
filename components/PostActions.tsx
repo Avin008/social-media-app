@@ -12,25 +12,31 @@ const PostActions = ({ post }: { post: Post }) => {
   const { token, userId } = useAuthStore((store) => store);
 
   const { mutate: likePost } = useMutation(async () => {
-    return fetch("http://localhost:3080/post/like", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: token,
-        postId: post.post_id,
-      }),
-    }).then((res) => res.json());
+    return fetch(
+      `${process.env.NEXT_PUBLIC_URL}/post/like`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: token,
+          postId: post.post_id,
+        }),
+      }
+    ).then((res) => res.json());
   });
 
   const { mutate: unLikePost } = useMutation(async () => {
-    return fetch("http://localhost:3080/post/unlike", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: token,
-        postId: post.post_id,
-      }),
-    }).then((res) => res.json());
+    return fetch(
+      `${process.env.NEXT_PUBLIC_URL}/post/unlike`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: token,
+          postId: post.post_id,
+        }),
+      }
+    ).then((res) => res.json());
   });
 
   return (

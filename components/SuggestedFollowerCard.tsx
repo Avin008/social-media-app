@@ -17,14 +17,17 @@ const SuggestedFollowerCard = ({
 
   const { mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/user/follow", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: token,
-          followedUserId: suggestedUser._id,
-        }),
-      }).then((res) => res.json());
+      return fetch(
+        `${process.env.NEXT_PUBLIC_URL}/user/follow`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: token,
+            followedUserId: suggestedUser._id,
+          }),
+        }
+      ).then((res) => res.json());
     },
     {
       onSuccess: (data) => {

@@ -7,7 +7,7 @@ const UserFeedsPage = () => {
   const { data: postData, isLoading } = useQuery(
     ["posts"],
     async () => {
-      return fetch("http://localhost:3080/post", {
+      return fetch(`${process.env.NEXT_PUBLIC_URL}/post`, {
         method: "GET",
       }).then((res) => res.json());
     }

@@ -25,7 +25,7 @@ const FeedCard = ({ post }: { post: Post }) => {
 
   const { data, isLoading, isError, mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/post", {
+      return fetch(`${process.env.NEXT_PUBLIC}/post`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -24,7 +24,7 @@ const CreatePostCard = () => {
 
   const { isLoading, data, mutate } = useMutation(
     async () => {
-      return fetch("http://localhost:3080/post", {
+      return fetch(`${process.env.NEXT_PUBLIC_URL}/post`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
