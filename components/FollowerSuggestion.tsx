@@ -1,11 +1,16 @@
 "use client";
+import { useAuthStore } from "@/store/useAuthStore";
 import SuggestedFollowerCard from "./SuggestedFollowerCard";
 import { useQuery } from "react-query";
 
 const FollowerSuggestion = () => {
+  const token = useAuthStore((store) => store.token);
+
   const { data } = useQuery(["users"], async () => {
-    return fetch("http://localhost:3080/user", {
-      method: "GET",
+    return fetch("http://localhost:3080/user/followers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: token }),
     }).then((res) => res.json());
   });
 
