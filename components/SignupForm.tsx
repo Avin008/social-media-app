@@ -63,7 +63,7 @@ const SignupForm = ({
         router.push("/feeds");
       },
       onError: (res: any) => {
-        console.log(res.response.data.message);
+        toast.error(res.response.data.message);
       },
     }
   );

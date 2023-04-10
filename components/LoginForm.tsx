@@ -57,6 +57,7 @@ const LoginForm = ({
         data: { token: string; _id: string };
         message: string;
       }) => {
+        console.log(res);
         addAuth(res.data.token, res.data._id);
         toast.success(res.message);
         router.push("/feeds");
