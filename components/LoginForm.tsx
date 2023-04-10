@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
+import axios from "axios";
 
 type LoginCredentials = {
   email: string;
@@ -43,36 +44,25 @@ const LoginForm = ({
   const router = useRouter();
   const addAuth = useAuthStore((store) => store.addAuth);
 
-  const { isLoading, mutate } = useMutation(
+  const { isLoading, mutate, data } = useMutation(
     async () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(loginCredentials),
-        }
-      ).then((res) => res.json());
+      const res = await axios.post(
+        "http://localhost:3333/login",
+        loginCredentials
+      );
+      return res.data;
     },
     {
-      onSuccess: (data: {
+      onSuccess: (res: {
+        data: { token: string; _id: string };
         message: string;
-        data: { token: string; userId: string };
       }) => {
-        if (data.message === "invalid password") {
-          toast.error(data.message);
-        } else if (data.message === "user doesn't exist") {
-          toast.error(data.message);
-        } else if (
-          data.message === "user successfully logged in"
-        ) {
-          toast.success(data.message);
-          addAuth(data.data.token, data.data.userId);
-          router.push("/feeds");
-        }
+        addAuth(res.data.token, res.data._id);
+        toast.success(res.message);
+        router.push("/feeds");
       },
-      onError: () => {
-        toast.error("something went wrong");
+      onError: (error: any) => {
+        toast.error(error.response.data.message);
       },
     }
   );
