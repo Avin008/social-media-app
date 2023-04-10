@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
+import axios from "axios";
 
 type SignupCredentials = {
   fullname: string;
@@ -46,36 +47,23 @@ const SignupForm = ({
 
   const { isLoading, mutate } = useMutation(
     async () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_URL}/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(signupCredentials),
-        }
-      ).then((res) => res.json());
+      const res = await axios.post(
+        "http://localhost:3333/signup",
+        signupCredentials
+      );
+      return res.data;
     },
     {
-      onSuccess: (data: {
+      onSuccess: (res: {
+        data: { token: string; _id: string };
         message: string;
-        data: { token: string; userId: string };
       }) => {
-        if (data.message === "email already exist") {
-          toast.error(data.message);
-        } else if (
-          data.message === "username already taken"
-        ) {
-          toast.error(data.message);
-        } else if (
-          data.message === "user created successfully"
-        ) {
-          toast.success(data.message);
-          addAuth(data.data.token, data.data.userId);
-          router.push("/feeds");
-        }
+        toast.success(res.message);
+        addAuth(res.data.token, res.data._id);
+        router.push("/feeds");
       },
-      onError: () => {
-        toast.error("something went wrong");
+      onError: (res: any) => {
+        console.log(res.response.data.message);
       },
     }
   );
