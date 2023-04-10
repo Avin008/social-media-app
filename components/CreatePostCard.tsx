@@ -5,10 +5,11 @@ import { useMutation } from "react-query";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
+import axios from "axios";
 
 const CreatePostCard = () => {
-  const [post, setPost] = useState<{ postText: string }>({
-    postText: "",
+  const [post, setPost] = useState<{ text: string }>({
+    text: "",
   });
 
   const inputHandler = (
@@ -24,23 +25,17 @@ const CreatePostCard = () => {
 
   const { isLoading, data, mutate } = useMutation(
     async () => {
-      return fetch(`${process.env.NEXT_PUBLIC_URL}/post`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: token,
-          postText: post.postText,
-        }),
-      }).then((res) => res.json());
+      const res = await axios.post(
+        "http://localhost:3333/post",
+        { token, post }
+      );
+      return res.data;
     },
     {
-      onSuccess: (data: { message: string; data: any }) => {
-        setPost({ postText: "" });
-        if (data.message === "post created successfully") {
-          toast.success(data.message);
-        }
+      onSuccess: (data) => {
+        toast.success("post created");
       },
-      onError: () => {
+      onError: (error) => {
         toast.error("something went wrong");
       },
     }
@@ -55,9 +50,9 @@ const CreatePostCard = () => {
         <div className="w-[90%] border rounded-md">
           <textarea
             className="w-full p-2 resize-none border-none outline-none bg-transparent"
-            name="postText"
+            name="text"
             id=""
-            value={post.postText}
+            value={post.text}
             placeholder="Write your post here..."
             onChange={inputHandler}
           ></textarea>
