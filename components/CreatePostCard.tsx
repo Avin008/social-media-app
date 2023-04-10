@@ -34,6 +34,7 @@ const CreatePostCard = () => {
     {
       onSuccess: (data) => {
         toast.success("post created");
+        setPost({ text: "" });
       },
       onError: (error) => {
         toast.error("something went wrong");
