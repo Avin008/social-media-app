@@ -5,27 +5,50 @@ import {
   AiOutlineHeart,
   AiFillHeart,
 } from "react-icons/ai";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const PostActions = ({ post }: { post: Post }) => {
   const { token, _id } = useAuthStore((store) => store);
 
-  const { mutate: likePost } = useMutation(async () => {
-    const res = await axios.post(
-      "http://localhost:3333/like",
-      { token, post }
-    );
-    return res.data;
-  });
+  const queryClient = useQueryClient();
 
-  const { mutate: unLikePost } = useMutation(async () => {
-    const res = await axios.put(
-      "http://localhost:3333/like",
-      { token, post }
-    );
-    return res.data;
-  });
+  const { mutate: likePost } = useMutation(
+    async () => {
+      const res = await axios.post(
+        "http://localhost:3333/like",
+        { token, post }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["posts"]);
+      },
+      onError: () => {
+        toast.error("something went wrong");
+      },
+    }
+  );
+
+  const { mutate: unLikePost } = useMutation(
+    async () => {
+      const res = await axios.put(
+        "http://localhost:3333/like",
+        { token, post }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["posts"]);
+      },
+      onError: () => {
+        toast.error("something went wrong");
+      },
+    }
+  );
 
   return (
     <div className="flex items-center gap-2">
