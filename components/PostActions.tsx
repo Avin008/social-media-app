@@ -1,5 +1,4 @@
 import { useAuthStore } from "@/store/useAuthStore";
-import Avatar from "./Avatar";
 import CommentBox from "./CommentBox";
 import PostEngagementCount from "./PostEngagementCount";
 import {
@@ -7,36 +6,25 @@ import {
   AiFillHeart,
 } from "react-icons/ai";
 import { useMutation } from "react-query";
+import axios from "axios";
 
 const PostActions = ({ post }: { post: Post }) => {
-  const { token, userId } = useAuthStore((store) => store);
+  const { token, _id } = useAuthStore((store) => store);
 
   const { mutate: likePost } = useMutation(async () => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_URL}/post/like`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: token,
-          postId: post.post_id,
-        }),
-      }
-    ).then((res) => res.json());
+    const res = await axios.post(
+      "http://localhost:3333/like",
+      { token, post }
+    );
+    return res.data;
   });
 
   const { mutate: unLikePost } = useMutation(async () => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_URL}/post/unlike`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: token,
-          postId: post.post_id,
-        }),
-      }
-    ).then((res) => res.json());
+    const res = await axios.put(
+      "http://localhost:3333/like",
+      { token, post }
+    );
+    return res.data;
   });
 
   return (
@@ -46,7 +34,7 @@ const PostActions = ({ post }: { post: Post }) => {
         commentCount={post.comments.length}
       />
       <CommentBox post={post} />
-      {post.likes.includes(userId) ? (
+      {post.likes.includes(_id) ? (
         <button
           onClick={() => unLikePost()}
           className="h-full w-10 text-2xl"
