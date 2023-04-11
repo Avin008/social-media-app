@@ -2,6 +2,8 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import Avatar from "./Avatar";
 import { useMutation } from "react-query";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const SuggestedFollowerCard = ({
   suggestedUser,
@@ -17,21 +19,20 @@ const SuggestedFollowerCard = ({
 
   const { mutate } = useMutation(
     async () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/follow`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            token: token,
-            followedUserId: suggestedUser._id,
-          }),
-        }
-      ).then((res) => res.json());
+      const res = await axios.post(
+        "http://localhost:3333/follow",
+        { token, followedUser: { _id: suggestedUser._id } }
+      );
+      return res.data;
     },
     {
       onSuccess: (data) => {
-        console.log(data);
+        toast.success(
+          `you are now following ${data.data.followedUser.fullname}`
+        );
+      },
+      onError: (data) => {
+        toast.error("something went wrong");
       },
     }
   );

@@ -2,20 +2,29 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import SuggestedFollowerCard from "./SuggestedFollowerCard";
 import { useQuery } from "react-query";
+import axios from "axios";
 
 const FollowerSuggestion = () => {
   const token = useAuthStore((store) => store.token);
 
-  const { data } = useQuery(["users"], async () => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_URL}/user/followers`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: token }),
-      }
-    ).then((res) => res.json());
-  });
+  const { data, isLoading } = useQuery(
+    ["users"],
+    async () => {
+      const res = await axios.post(
+        "http://localhost:3333/suggestions",
+        { token }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
 
   return (
     <div className=" h-fit px-3 py-3 mx-2 rounded-md bg-[#282C37]">
@@ -25,7 +34,7 @@ const FollowerSuggestion = () => {
         </span>
       </div>
       <ul className="mt-2">
-        {data?.data?.map((x: any) => (
+        {data?.data.suggestedUsers?.map((x: any) => (
           <SuggestedFollowerCard
             key={x._id}
             suggestedUser={x}
