@@ -1,7 +1,7 @@
 "use client";
 import { useAuthStore } from "@/store/useAuthStore";
 import Avatar from "./Avatar";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
@@ -17,6 +17,8 @@ const SuggestedFollowerCard = ({
 }) => {
   const token = useAuthStore((store) => store.token);
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation(
     async () => {
       const res = await axios.post(
@@ -27,6 +29,7 @@ const SuggestedFollowerCard = ({
     },
     {
       onSuccess: (data) => {
+        queryClient.invalidateQueries(["users"]);
         toast.success(
           `you are now following ${data.data.followedUser.fullname}`
         );
