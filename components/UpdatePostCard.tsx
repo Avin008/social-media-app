@@ -1,10 +1,11 @@
 "use client";
 import { useRef, useState } from "react";
 import Avatar from "./Avatar";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
+import axios from "axios";
 
 const UpdatePostCard = ({
   post: postData,
@@ -16,6 +17,8 @@ const UpdatePostCard = ({
   const { token } = useAuthStore((store) => store);
 
   const [post, setUpdatePost] = useState(postData);
+
+  const queryClient = useQueryClient();
 
   const inputHandler = (
     e: React.SyntheticEvent<HTMLTextAreaElement>
@@ -29,18 +32,11 @@ const UpdatePostCard = ({
 
   const { isLoading, data, mutate } = useMutation(
     async () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_URL}/post/edit`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            token: token,
-            postText: post.post_text,
-            postId: post.post_id,
-          }),
-        }
-      ).then((res) => res.json());
+      const res = await axios.put(
+        "http://localhost:3333/post",
+        { token, post }
+      );
+      return res.data;
     },
     {
       onSuccess: (data: { message: string; data: any }) => {
@@ -49,9 +45,8 @@ const UpdatePostCard = ({
           post_text: "",
         }));
         closeUpdatePostHandler();
-        if (data.message === "post created successfully") {
-          toast.success(data.message);
-        }
+        toast.success(data.message);
+        queryClient.invalidateQueries(["posts"]);
       },
       onError: () => {
         toast.error("something went wrong");
@@ -68,9 +63,9 @@ const UpdatePostCard = ({
         <div className="w-[90%] border rounded-md">
           <textarea
             className="w-full p-2 resize-none border-none outline-none bg-transparent"
-            name="post_text"
+            name="text"
             id=""
-            value={post.post_text}
+            value={post.text}
             placeholder="Write your post here..."
             onChange={inputHandler}
           ></textarea>
