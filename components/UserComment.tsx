@@ -3,12 +3,7 @@ import Avatar from "./Avatar";
 const UserComment = ({
   comment,
 }: {
-  comment: {
-    user_id: string;
-    username: string;
-    fullname: string;
-    comment: string;
-  };
+  comment: Comments;
 }) => {
   return (
     <div className="items-center flex gap-1">
@@ -17,9 +12,9 @@ const UserComment = ({
       </div>
       <div className="w-[90%] flex flex-col leading-4">
         <span className="text-xs text-gray-400">
-          @{comment.username}
+          @{comment.author.fullname}
         </span>
-        <span className="text-xs">{comment.comment}</span>
+        <span className="text-xs">{comment.text}</span>
       </div>
     </div>
   );

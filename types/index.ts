@@ -1,16 +1,27 @@
-type Post = {
-  userPhoto: string;
-  user_id: string;
-  username: string;
+type User = {
+  _id: string;
+  email: string;
   fullname: string;
-  post_id: string;
-  post_text: string;
-  postImg?: string;
+  username: string;
+  password: string;
+  followers: string[];
+  following: string[];
+};
+
+type Comments = {
+  _id: string;
+  author: User;
+  text: string;
+  createdAt: Date;
+};
+
+type Post = {
+  _id: string;
+  img: string;
+  author: User;
+  text: string;
   likes: string[];
-  comments: {
-    user_id: string;
-    username: string;
-    fullname: string;
-    comment: string;
-  }[];
+  comments: Comments[];
+  createdAt: Date;
+  updatedAt: Date;
 };

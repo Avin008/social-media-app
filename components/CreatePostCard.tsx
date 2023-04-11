@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import Avatar from "./Avatar";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -23,6 +23,8 @@ const CreatePostCard = () => {
 
   const router = useRouter();
 
+  const queryClient = useQueryClient();
+
   const { isLoading, data, mutate } = useMutation(
     async () => {
       const res = await axios.post(
@@ -35,6 +37,7 @@ const CreatePostCard = () => {
       onSuccess: (data) => {
         toast.success("post created");
         setPost({ text: "" });
+        queryClient.invalidateQueries(["posts"]);
       },
       onError: (error) => {
         toast.error("something went wrong");
