@@ -4,11 +4,13 @@ import UserInfo from "./userInfo";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
 import UserComment from "./UserComment";
-import { useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useState } from "react";
 import UpdatePostCard from "./UpdatePostCard";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const FeedCard = ({ post }: { post: Post }) => {
   const [togglePostOptions, setTogglePostOptions] =
@@ -23,10 +25,22 @@ const FeedCard = ({ post }: { post: Post }) => {
 
   const { token, _id } = useAuthStore((store) => store);
 
-  console.log(_id);
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError, mutate } = useMutation(
-    async () => {}
+    async () => {
+      const res = await axios.post(
+        "http://localhost:3333/post/delete",
+        { token, post }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: (data) => {
+        toast.success(data.message);
+        queryClient.invalidateQueries(["posts"]);
+      },
+    }
   );
 
   return (
