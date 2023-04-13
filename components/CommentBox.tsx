@@ -1,31 +1,27 @@
 "use client";
 import { useAuthStore } from "@/store/useAuthStore";
+import axios from "axios";
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 const CommentBox = ({ post }: { post: Post }) => {
   const [comment, setComment] = useState<string>("");
 
   const token = useAuthStore((store) => store.token);
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation(
     async () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_URL}/post/comment`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            token: token,
-            postId: post.post_id,
-            comment: comment,
-          }),
-        }
+      const res = await axios.put(
+        "http://localhost:3333/post/comments",
+        { post, token, comment: comment }
       );
     },
     {
       onSuccess: () => {
         setComment("");
+        queryClient.invalidateQueries(["comments"]);
       },
     }
   );

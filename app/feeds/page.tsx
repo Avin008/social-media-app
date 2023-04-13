@@ -18,8 +18,6 @@ const UserFeedsPage = () => {
     }
   );
 
-  console.log(postData);
-
   return (
     <div className="text-white m-2 flex flex-col gap-2">
       <CreatePostCard />

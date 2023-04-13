@@ -11,7 +11,7 @@ type User = {
 type Comments = {
   _id: string;
   author: User;
-  text: string;
+  comment: string;
   createdAt: Date;
 };
 

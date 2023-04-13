@@ -4,7 +4,11 @@ import UserInfo from "./userInfo";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
 import UserComment from "./UserComment";
-import { useQueryClient, useMutation } from "react-query";
+import {
+  useQueryClient,
+  useMutation,
+  useQuery,
+} from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useState } from "react";
@@ -42,6 +46,19 @@ const FeedCard = ({ post }: { post: Post }) => {
       },
     }
   );
+
+  const {
+    data: comments,
+    isLoading: isCommentsDataLoading,
+  } = useQuery(["comments"], async () => {
+    const res = await axios.post(
+      "http://localhost:3333/post/comments",
+      { token, post }
+    );
+    return res.data;
+  });
+
+  console.log(comments);
 
   return (
     <div className="border p-4 border-gray-600 h-fit relative rounded-md space-y-3">
@@ -105,11 +122,14 @@ const FeedCard = ({ post }: { post: Post }) => {
       </div>
       <div className="">{post.text}</div>
       {post.img && <PostImage postImg={post.img} />}
-      <PostActions post={post} />
-      {post.comments.length > 0 && (
+      <PostActions
+        post={post}
+        comment={comments?.data.comments}
+      />
+      {comments?.data.comments.length > 0 && (
         <div className="flex flex-col gap-2">
           <span className="text-sm">Comments</span>
-          {post.comments.map((comment) => (
+          {comments.data.comments.map((comment: any) => (
             <UserComment
               key={comment._id}
               comment={comment}

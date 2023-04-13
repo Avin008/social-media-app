@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   const dynamicPath = pathname.split("/").slice(-1).join();
 
-  const userId = useAuthStore((store) => store.userId);
+  const userId = useAuthStore((store) => store._id);
 
   return (
     <ul className="pb-1 space-y-2 text-white cursor-pointer bg-[#1E1F23] flex flex-col">

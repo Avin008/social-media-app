@@ -14,7 +14,7 @@ const UserComment = ({
         <span className="text-xs text-gray-400">
           @{comment.author.fullname}
         </span>
-        <span className="text-xs">{comment.text}</span>
+        <span className="text-xs">{comment.comment}</span>
       </div>
     </div>
   );
