@@ -1,5 +1,6 @@
 "use client";
 import UserCard from "@/components/UserCard";
+import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useQuery } from "react-query";
 
@@ -11,22 +12,23 @@ const ProfilePage = () => {
   const { data, isLoading } = useQuery(
     ["user"],
     async () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_URL}/user/user`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: dynamicPath }),
-        }
-      ).then((res) => res.json());
+      const res = await axios.post(
+        "http://localhost:3333/user",
+        { _id: dynamicPath }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data.data.postData);
+      },
     }
   );
 
   return (
     <div className="p-2">
-      {!isLoading && data.data && (
-        <UserCard userData={data.data} />
-      )}
+      {!isLoading && <UserCard data={data.data} />}
     </div>
   );
 };
