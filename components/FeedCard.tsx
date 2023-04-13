@@ -61,7 +61,7 @@ const FeedCard = ({ post }: { post: Post }) => {
   console.log(comments);
 
   return (
-    <div className="border p-4 border-gray-600 h-fit relative rounded-md space-y-3">
+    <div className="border p-4 text-white border-gray-600 h-fit relative rounded-md space-y-3">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
           <Avatar image={"/social.svg"} />
