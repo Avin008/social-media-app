@@ -127,12 +127,14 @@ const FeedCard = ({ post }: { post: Post }) => {
       {comments?.data.comments.length > 0 && (
         <div className="flex flex-col gap-2">
           <span className="text-sm">Comments</span>
-          {comments.data.comments.map((comment: any) => (
-            <UserComment
-              key={comment._id}
-              comment={comment}
-            />
-          ))}
+          {comments.data.comments
+            .filter((x: any) => x.post_id === post._id)
+            .map((comment: any) => (
+              <UserComment
+                key={comment._id}
+                comment={comment}
+              />
+            ))}
         </div>
       )}
       {toggleEditPostModal && (
