@@ -61,8 +61,9 @@ const PostActions = ({
       <PostEngagementCount
         likesCount={post.likes?.length}
         commentCount={
-          comment.filter((x: any) => x.post_id === post._id)
-            ?.length
+          comment?.filter(
+            (x: any) => x.post_id === post._id
+          )?.length
         }
       />
       <CommentBox post={post} />
