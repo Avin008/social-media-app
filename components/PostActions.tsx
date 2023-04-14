@@ -60,7 +60,10 @@ const PostActions = ({
     <div className="flex items-center gap-2">
       <PostEngagementCount
         likesCount={post.likes?.length}
-        commentCount={comment?.length}
+        commentCount={
+          comment.filter((x: any) => x.post_id === post._id)
+            ?.length
+        }
       />
       <CommentBox post={post} />
       {post.likes.includes(_id) ? (
