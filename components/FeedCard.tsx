@@ -11,7 +11,7 @@ import {
 } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UpdatePostCard from "./UpdatePostCard";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -43,6 +43,7 @@ const FeedCard = ({ post }: { post: Post }) => {
       onSuccess: (data) => {
         toast.success(data.message);
         queryClient.invalidateQueries(["posts"]);
+        setTogglePostOptions(false);
       },
     }
   );
