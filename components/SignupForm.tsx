@@ -5,6 +5,7 @@ import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 type SignupCredentials = {
   fullname: string;
@@ -123,9 +124,13 @@ const SignupForm = ({
         <div className="flex flex-col gap-3">
           <button
             disabled={isLoading}
-            className="bg-brand shadow-sm p-2 font-bold rounded-md text-white"
+            className="bg-brand flex items-center justify-center shadow-sm p-2 font-bold rounded-md text-white"
           >
-            {isLoading ? "loading..." : "SIGN UP"}
+            {isLoading ? (
+              <ClipLoader color="white" size={22} />
+            ) : (
+              "SIGN UP"
+            )}
           </button>
           <span className="mt-2 text-gray-300">
             Already had an Account?{" "}

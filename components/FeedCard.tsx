@@ -58,8 +58,6 @@ const FeedCard = ({ post }: { post: Post }) => {
     return res.data;
   });
 
-  console.log(comments);
-
   return (
     <div className="border p-4 text-white border-gray-600 h-fit relative rounded-md space-y-3">
       <div className="flex justify-between items-center">

@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
+import { ClipLoader } from "react-spinners";
 import axios from "axios";
 
 type LoginCredentials = {
@@ -110,9 +111,13 @@ const LoginForm = ({
         <div className="flex flex-col gap-3">
           <button
             disabled={isLoading}
-            className="bg-brand shadow-sm p-2 font-bold rounded-md text-white"
+            className="bg-brand shadow-sm flex items-center justify-center p-2 font-bold rounded-md text-white"
           >
-            {isLoading ? "loading..." : "LOGIN"}
+            {isLoading ? (
+              <ClipLoader color="white" size={22} />
+            ) : (
+              "LOGIN"
+            )}
           </button>
           <span className="mt-2 text-gray-300">
             Don&apos;t Have an Account?{" "}
