@@ -14,7 +14,7 @@ const ProfilePage = () => {
     ["user"],
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/user",
+        `${process.env.NEXT_PUBLIC_URL}/user`,
         { _id: dynamicPath }
       );
 

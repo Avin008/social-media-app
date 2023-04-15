@@ -48,7 +48,7 @@ const LoginForm = ({
   const { isLoading, mutate, data } = useMutation(
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/login",
+        `${process.env.NEXT_PUBLIC_URL}/login`,
         loginCredentials
       );
       return res.data;

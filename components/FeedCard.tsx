@@ -34,7 +34,7 @@ const FeedCard = ({ post }: { post: Post }) => {
   const { data, isLoading, isError, mutate } = useMutation(
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/post/delete",
+        `${process.env.NEXT_PUBLIC_URL}/post/delete`,
         { token, post }
       );
       return res.data;
@@ -53,7 +53,7 @@ const FeedCard = ({ post }: { post: Post }) => {
     isLoading: isCommentsDataLoading,
   } = useQuery(["comments"], async () => {
     const res = await axios.post(
-      "http://localhost:3333/post/comments",
+      `${process.env.NEXT_PUBLIC_URL}/post/comments`,
       { token, post }
     );
     return res.data;

@@ -11,7 +11,7 @@ const FollowerSuggestion = () => {
     ["users"],
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/suggestions",
+        `${process.env.NEXT_PUBLIC_URL}/suggestions`,
         { token }
       );
       return res.data;

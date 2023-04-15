@@ -49,7 +49,7 @@ const SignupForm = ({
   const { isLoading, mutate } = useMutation(
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/signup",
+        `${process.env.NEXT_PUBLIC_URL}/signup`,
         signupCredentials
       );
       return res.data;

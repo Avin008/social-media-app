@@ -11,7 +11,7 @@ const UserFeedsPage = () => {
     ["posts"],
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/posts",
+        `${process.env.NEXT_PUBLIC_URL}/posts`,
         token
       );
       return res.data;
@@ -22,7 +22,7 @@ const UserFeedsPage = () => {
     ["user"],
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/user",
+        `${process.env.NEXT_PUBLIC_URL}/user`,
         {
           _id,
         }

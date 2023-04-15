@@ -22,7 +22,7 @@ const SuggestedFollowerCard = ({
   const { mutate } = useMutation(
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/follow",
+        `${process.env.NEXT_PUBLIC_URL}/follow`,
         { token, followedUser: { _id: suggestedUser._id } }
       );
       return res.data;

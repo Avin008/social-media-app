@@ -14,7 +14,7 @@ const CommentBox = ({ post }: { post: Post }) => {
   const { mutate } = useMutation(
     async () => {
       const res = await axios.put(
-        "http://localhost:3333/post/comments",
+        `${process.env.NEXT_PUBLIC_URL}/post/comments`,
         { post, token, comment: comment }
       );
     },

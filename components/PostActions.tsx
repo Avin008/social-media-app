@@ -23,7 +23,7 @@ const PostActions = ({
   const { mutate: likePost } = useMutation(
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/like",
+        `${process.env.NEXT_PUBLIC_URL}/like`,
         { token, post }
       );
       return res.data;
@@ -41,7 +41,7 @@ const PostActions = ({
   const { mutate: unLikePost } = useMutation(
     async () => {
       const res = await axios.put(
-        "http://localhost:3333/like",
+        `${process.env.NEXT_PUBLIC_URL}/like`,
         { token, post }
       );
       return res.data;
