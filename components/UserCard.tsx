@@ -4,13 +4,11 @@ import Avatar from "./Avatar";
 const UserCard = ({ data }: { data: any }) => {
   const userId = useAuthStore((store) => store._id);
 
-  console.log(data);
-
   return (
     <div className="flex justify-between border items-center px-4 bg-[#282C37] border-gray-600 rounded-md h-40">
       <div className="flex gap-3 items-center">
         <Avatar
-          image="/social.svg"
+          image={data.userData.profilePic}
           height="100px"
           width="100px"
         />

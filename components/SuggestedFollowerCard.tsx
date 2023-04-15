@@ -9,7 +9,7 @@ const SuggestedFollowerCard = ({
   suggestedUser,
 }: {
   suggestedUser: {
-    photo: string;
+    profilePic: string;
     username: string;
     fullname: string;
     _id: string;
@@ -43,7 +43,7 @@ const SuggestedFollowerCard = ({
   return (
     <div className="h-14 rounded-md flex gap-3 justify-between items-center px-2">
       <div className="flex gap-3">
-        <Avatar image="/social.svg" />
+        <Avatar image={suggestedUser.profilePic} />
         <div className="flex flex-col leading-5">
           <span className="text-white">
             {suggestedUser.fullname}
