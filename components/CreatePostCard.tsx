@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 
-const CreatePostCard = () => {
+const CreatePostCard = ({
+  userData,
+}: {
+  userData: User;
+}) => {
   const [post, setPost] = useState<{ text: string }>({
     text: "",
   });
@@ -49,7 +53,7 @@ const CreatePostCard = () => {
     <div className="h-fit p-2">
       <div className="flex items-center">
         <div className="w-[10%]">
-          <Avatar image="/social.svg" />
+          <Avatar image={userData?.profilePic} />
         </div>
         <div className="w-[90%] border rounded-md">
           <textarea
