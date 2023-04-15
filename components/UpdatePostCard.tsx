@@ -58,7 +58,7 @@ const UpdatePostCard = ({
     <div className="h-fit p-2">
       <div className="flex items-center">
         <div className="w-[10%]">
-          <Avatar image="/social.svg" />
+          <Avatar image={post.author.profilePic} />
         </div>
         <div className="w-[90%] border rounded-md">
           <textarea
