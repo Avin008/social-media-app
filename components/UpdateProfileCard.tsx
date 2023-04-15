@@ -2,8 +2,10 @@ import { useState } from "react";
 import Avatar from "./Avatar";
 const UpdateUserProfileCard = ({
   userData,
+  toggleProfileCardHandler,
 }: {
   userData: User;
+  toggleProfileCardHandler: () => void;
 }) => {
   const [updateUserData, setUpdateUserData] =
     useState<typeof userData>(userData);
@@ -92,7 +94,10 @@ const UpdateUserProfileCard = ({
         <button className="w-full p-2 rounded-md bg-brand text-white">
           Update Profile
         </button>
-        <button className="w-full p-2 rounded-md border border-brand text-brand font-semibold">
+        <button
+          className="w-full p-2 rounded-md border border-brand text-brand font-semibold"
+          onClick={toggleProfileCardHandler}
+        >
           Cancel
         </button>
       </div>
