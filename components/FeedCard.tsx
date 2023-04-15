@@ -80,7 +80,7 @@ const FeedCard = ({ post }: { post: Post }) => {
             </button>
           </span>
           {togglePostOptions && (
-            <div className="absolute w-48 top-5 right-0">
+            <div className="absolute z-30 w-48 top-6 right-0">
               <ul className="text-xs flex flex-col gap-2 bg-[#282C37] py-1 rounded-md">
                 {post.author._id == _id && (
                   <li>
