@@ -1,5 +1,6 @@
 type User = {
   _id: string;
+  profilePic: string;
   email: string;
   fullname: string;
   username: string;

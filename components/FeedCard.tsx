@@ -63,7 +63,7 @@ const FeedCard = ({ post }: { post: Post }) => {
     <div className="border p-4 text-white border-gray-600 h-fit relative rounded-md space-y-3">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
-          <Avatar image={"/social.svg"} />
+          <Avatar image={post.author.profilePic} />
           <UserInfo
             username={post.author.username}
             fullName={post.author.fullname}
