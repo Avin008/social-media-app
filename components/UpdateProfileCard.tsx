@@ -1,9 +1,12 @@
+"use client";
 import { useState, useRef } from "react";
 import Avatar from "./Avatar";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 const UpdateUserProfileCard = ({
   userData,
   toggleProfileCardHandler,
@@ -32,23 +35,34 @@ const UpdateUserProfileCard = ({
 
   const imgUploadRef = useRef<HTMLInputElement>(null);
 
-  const { mutate, isLoading } = useMutation(async () => {
-    const formData = new FormData();
-    formData.append("fullname", updateUserData.fullname);
-    formData.append("username", updateUserData.username);
-    formData.append("email", updateUserData.email);
-    formData.append("password", updateUserData.password);
-    // @ts-ignore
-    formData.append("image", updateProfilePic[0]);
-    // @ts-ignore
-    formData.append("token", token);
+  const queryClient = useQueryClient();
 
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/user/update`,
-      formData
-    );
-    return res.data;
-  });
+  const { mutate, isLoading } = useMutation(
+    async () => {
+      const formData = new FormData();
+      formData.append("fullname", updateUserData.fullname);
+      formData.append("username", updateUserData.username);
+      formData.append("email", updateUserData.email);
+      formData.append("password", updateUserData.password);
+      // @ts-ignore
+      formData.append("image", updateProfilePic);
+      // @ts-ignore
+      formData.append("token", token);
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/user/update`,
+        formData
+      );
+      return res.data;
+    },
+    {
+      onSuccess: (data) => {
+        toast.success(data.message);
+        queryClient.invalidateQueries(["user"]);
+        toggleProfileCardHandler();
+      },
+    }
+  );
 
   return (
     <div className="p-5 text-white text-sm shadow-md flex flex-col items-center gap-5 py-5 bg-[#1E1F23] border-white h-fit w-96 rounded-md">
@@ -100,7 +114,8 @@ const UpdateUserProfileCard = ({
           onChange={(
             e: React.ChangeEvent<HTMLInputElement>
           ) => {
-            setUpdateProfilePic(e.currentTarget.files);
+            // @ts-ignore
+            setUpdateProfilePic(e.currentTarget.files[0]);
           }}
         />
       </div>
