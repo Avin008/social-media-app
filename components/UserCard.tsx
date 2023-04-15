@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import Avatar from "./Avatar";
+import UpdateUserProfileCard from "./UpdateProfileCard";
 
 const UserCard = ({ data }: { data: any }) => {
   const userId = useAuthStore((store) => store._id);
@@ -39,6 +40,11 @@ const UserCard = ({ data }: { data: any }) => {
           </button>
         )}
       </div>
+      {false && (
+        <div className="fixed top-0 bottom-0 flex items-center justify-center left-0 right-0 bg-black/20 z-50">
+          <UpdateUserProfileCard userData={data.userData} />
+        </div>
+      )}
     </div>
   );
 };
