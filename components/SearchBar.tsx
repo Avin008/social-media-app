@@ -38,7 +38,7 @@ const SearchBar = ({
   const debounce = useDebouncedCallback((value) => {
     setSearchKey(value);
     mutate();
-  }, 2000);
+  }, 500);
 
   return (
     <div className="relative shadow-sm focus-within:bg-transparent focus-within:border focus-within:border-brand bg-[#282C37] h-10 rounded-md m-2 flex items-center">
