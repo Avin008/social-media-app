@@ -3,14 +3,12 @@ import FeedCard from "@/components/FeedCard";
 import UserCard from "@/components/UserCard";
 import axios from "axios";
 import { usePathname } from "next/navigation";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 const ProfilePage = () => {
   const pathname = usePathname();
 
   const dynamicPath = pathname.split("/").slice(-1).join();
-
-  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery(
     ["user"],
@@ -21,12 +19,6 @@ const ProfilePage = () => {
       );
 
       return res.data;
-    },
-    {
-      onSuccess: (data) => {
-        console.log(data.data.postData);
-        queryClient.invalidateQueries(["user"]);
-      },
     }
   );
 
