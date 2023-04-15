@@ -1,10 +1,13 @@
 import SearchedUser from "./SearchedUser";
 
 const SearchList = () => {
-  const data: [] = [];
+  const data: any[] = [
+    { fullname: "just case", username: "justcase" },
+    { fullname: "must case", username: "mustcase" },
+  ];
 
   return (
-    <div className="absolute left-0 py-1 right-0 top-12 min-h-20 shadow-sm border rounded-md">
+    <div className="absolute bg-gray-800 z-10 left-0 py-1 right-0 top-12 min-h-20 shadow-sm border rounded-md">
       <ul>
         {data?.map((user) => (
           <li
