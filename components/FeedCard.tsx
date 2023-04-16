@@ -59,6 +59,14 @@ const FeedCard = ({ post }: { post: PostType }) => {
     return res.data.data.comments as CommentType[];
   });
 
+  const { mutate: unfollow } = useMutation(async () => {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/user/unfollow`,
+      { token, followedUser: post?.author }
+    );
+    return res.data;
+  });
+
   return (
     <div className="border p-4 text-white border-gray-600 h-fit relative rounded-md space-y-3">
       <div className="flex justify-between items-center">
@@ -106,7 +114,12 @@ const FeedCard = ({ post }: { post: PostType }) => {
                 )}
                 {post?.author?._id !== _id && (
                   <li>
-                    <button className="px-2 w-full p-1 hover:bg-brand">
+                    <button
+                      className="px-2 w-full p-1 hover:bg-brand"
+                      onClick={() => {
+                        unfollow();
+                      }}
+                    >
                       unfollow
                     </button>
                   </li>
