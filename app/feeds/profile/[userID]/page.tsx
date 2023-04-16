@@ -25,11 +25,6 @@ const ProfilePage = () => {
 
   return (
     <div className="p-2 flex flex-col gap-2">
-      <div>
-        <span className="text-white font-medium px-4">
-          # Profile
-        </span>
-      </div>
       {!isUserDataLoading && (
         <UserCard
           userData={userData?.userData}
