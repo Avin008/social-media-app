@@ -4,6 +4,7 @@ import SearchList from "./SearchList";
 import { useDebouncedCallback } from "use-debounce";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { HiOutlineSearch } from "react-icons/hi";
 
 const SearchBar = ({
   initialData,
@@ -38,7 +39,7 @@ const SearchBar = ({
   return (
     <div className="relative shadow-sm focus-within:bg-transparent focus-within:border focus-within:border-brand bg-[#282C37] h-10 rounded-md m-2 flex items-center">
       <input
-        className="text-white bg-transparent outline-none h-full w-[90%] px-4"
+        className="text-white bg-transparent outline-none h-full w-[80%] px-4"
         type="text"
         placeholder="search peoples"
         onChange={(
@@ -46,8 +47,8 @@ const SearchBar = ({
         ) => debounce(e.currentTarget.value)}
         value={initialData}
       />
-      <div className="flex justify-end w-[10%] px-2">
-        <span>🔍</span>
+      <div className="flex justify-end w-[20%] pr-3">
+        <HiOutlineSearch color="white" size={20} />
       </div>
 
       {searchKey.length > 0 &&
