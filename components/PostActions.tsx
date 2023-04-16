@@ -13,7 +13,7 @@ const PostActions = ({
   post,
   comment,
 }: {
-  post: Post;
+  post: PostType;
   comment: any;
 }) => {
   const { token, _id } = useAuthStore((store) => store);
@@ -31,6 +31,7 @@ const PostActions = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["user"]);
       },
       onError: () => {
         toast.error("something went wrong");
@@ -48,6 +49,7 @@ const PostActions = ({
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(["user"]);
         queryClient.invalidateQueries(["posts"]);
       },
       onError: () => {
@@ -59,15 +61,16 @@ const PostActions = ({
   return (
     <div className="flex items-center gap-2">
       <PostEngagementCount
-        likesCount={post.likes?.length}
+        likesCount={post?.likes?.length}
         commentCount={
           comment?.filter(
-            (x: any) => x.post_id === post._id
+            (comment: CommentType) =>
+              comment?.post_id === post?._id
           )?.length
         }
       />
       <CommentBox post={post} />
-      {post.likes.includes(_id) ? (
+      {post?.likes.includes(_id) ? (
         <button
           onClick={() => unLikePost()}
           className="h-full w-10 text-2xl"

@@ -2,8 +2,8 @@ const PostEngagementCount = ({
   likesCount,
   commentCount,
 }: {
-  likesCount: number;
-  commentCount: number;
+  likesCount: number | undefined;
+  commentCount: number | undefined;
 }) => {
   return (
     <>

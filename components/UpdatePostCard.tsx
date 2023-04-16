@@ -11,7 +11,7 @@ const UpdatePostCard = ({
   post: postData,
   closeUpdatePostHandler,
 }: {
-  post: Post;
+  post: PostType;
   closeUpdatePostHandler: () => void;
 }) => {
   const { token } = useAuthStore((store) => store);
@@ -25,12 +25,16 @@ const UpdatePostCard = ({
   ): void => {
     const { name, value } = e.currentTarget;
 
-    setUpdatePost((prev) => ({ ...prev, [name]: value }));
+    setUpdatePost((prev: any) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const router = useRouter();
-
-  const { isLoading, data, mutate } = useMutation(
+  const {
+    isLoading: isUpdatePostLoading,
+    mutate: updatePost,
+  } = useMutation(
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/update`,
@@ -40,13 +44,13 @@ const UpdatePostCard = ({
     },
     {
       onSuccess: (data: { message: string; data: any }) => {
-        setUpdatePost((prev) => ({
+        setUpdatePost((prev: any) => ({
           ...prev,
           post_text: "",
         }));
         closeUpdatePostHandler();
         toast.success(data.message);
-        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["user"]);
       },
       onError: () => {
         toast.error("something went wrong");
@@ -58,14 +62,14 @@ const UpdatePostCard = ({
     <div className="h-fit p-2">
       <div className="flex items-center">
         <div className="w-[10%]">
-          <Avatar image={post.author.profilePic} />
+          <Avatar image={post?.author?.profilePic} />
         </div>
         <div className="w-[90%] border rounded-md">
           <textarea
             className="w-full p-2 resize-none border-none outline-none bg-transparent"
             name="text"
             id=""
-            value={post.text}
+            value={post?.text}
             placeholder="Write your post here..."
             onChange={inputHandler}
           ></textarea>
@@ -77,10 +81,9 @@ const UpdatePostCard = ({
           type="file"
           name=""
           id=""
-          accept=".png,.jpg,.jpeg"
         />
         <button
-          onClick={() => mutate()}
+          onClick={() => updatePost()}
           className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
         >
           update post
