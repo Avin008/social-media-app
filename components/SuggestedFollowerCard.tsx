@@ -26,6 +26,7 @@ const SuggestedFollowerCard = ({
       onSuccess: (data) => {
         queryClient.invalidateQueries(["users"]);
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["suggestions"]);
         toast.success(
           `you are now following ${data.data.followedUser.fullname}`
         );

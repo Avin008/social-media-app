@@ -43,7 +43,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
       onSuccess: (data) => {
         toast.success(data.message);
         queryClient.invalidateQueries(["posts"]);
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["users"]);
         queryClient.invalidateQueries(["explore"]);
         setTogglePostOptions(false);
       },
@@ -135,22 +135,20 @@ const FeedCard = ({ post }: { post: PostType }) => {
       <div className="">{post?.text}</div>
       {post?.img && <PostImage postImg={post?.img} />}
       <PostActions post={post} comment={commentsData} />
-      {commentsData?.length && (
-        <div className="flex flex-col gap-2">
-          <span className="text-sm">Comments</span>
-          {commentsData
-            .filter(
-              (comment: CommentType) =>
-                comment?.post_id === post?._id
-            )
-            .map((comment: CommentType) => (
-              <UserComment
-                key={comment?._id}
-                comment={comment}
-              />
-            ))}
-        </div>
-      )}
+      <div className="flex flex-col gap-2">
+        <span className="text-sm">Comments</span>
+        {commentsData
+          ?.filter(
+            (comment: CommentType) =>
+              comment?.post_id === post?._id
+          )
+          .map((comment: CommentType) => (
+            <UserComment
+              key={comment?._id}
+              comment={comment}
+            />
+          ))}
+      </div>
       {toggleEditPostModal && (
         <div className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center bg-black/60">
           <div className="w-[45%] rounded-md bg-[#282C37] p-2">

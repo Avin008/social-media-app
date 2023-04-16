@@ -11,7 +11,7 @@ const ProfilePage = () => {
   const dynamicPath = pathname.split("/").slice(-1).join();
 
   const { data: userData, isLoading: isUserDataLoading } =
-    useQuery(["user"], async () => {
+    useQuery(["users"], async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/user`,
         { _id: dynamicPath }
@@ -24,7 +24,7 @@ const ProfilePage = () => {
     });
 
   return (
-    <div className="p-2 flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-2">
       {!isUserDataLoading && (
         <UserCard
           userData={userData?.userData}

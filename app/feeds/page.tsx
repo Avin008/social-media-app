@@ -10,7 +10,7 @@ const UserFeedsPage = () => {
   const { token, _id } = useAuthStore((store) => store);
 
   const { data: userData, isLoading: isUserDataLoading } =
-    useQuery(["user"], async () => {
+    useQuery(["users"], async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/user`,
         {
