@@ -7,14 +7,14 @@ import axios from "axios";
 const FollowerSuggestion = () => {
   const token = useAuthStore((store) => store.token);
 
-  const { data, isLoading } = useQuery(
+  const { data: suggestedUsers, isLoading } = useQuery(
     ["users"],
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/user/suggestions`,
         { token }
       );
-      return res.data;
+      return res.data.data.suggestedUsers as UserType[];
     }
   );
 
@@ -26,10 +26,10 @@ const FollowerSuggestion = () => {
         </span>
       </div>
       <ul className="mt-2">
-        {data?.data.suggestedUsers?.map((x: any) => (
+        {suggestedUsers?.map((user: UserType) => (
           <SuggestedFollowerCard
-            key={x._id}
-            suggestedUser={x}
+            key={user?._id}
+            suggestedUser={user}
           />
         ))}
       </ul>

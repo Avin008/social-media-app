@@ -8,12 +8,7 @@ import { toast } from "react-hot-toast";
 const SuggestedFollowerCard = ({
   suggestedUser,
 }: {
-  suggestedUser: {
-    profilePic: string;
-    username: string;
-    fullname: string;
-    _id: string;
-  };
+  suggestedUser: UserType;
 }) => {
   const token = useAuthStore((store) => store.token);
 
@@ -23,7 +18,7 @@ const SuggestedFollowerCard = ({
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/user/follow`,
-        { token, followedUser: { _id: suggestedUser._id } }
+        { token, followedUser: { _id: suggestedUser?._id } }
       );
       return res.data;
     },
@@ -43,13 +38,13 @@ const SuggestedFollowerCard = ({
   return (
     <div className="h-14 rounded-md flex gap-3 justify-between items-center px-2">
       <div className="flex gap-3">
-        <Avatar image={suggestedUser.profilePic} />
+        <Avatar image={suggestedUser?.profilePic} />
         <div className="flex flex-col leading-5">
           <span className="text-white">
-            {suggestedUser.fullname}
+            {suggestedUser?.fullname}
           </span>
           <span className="text-gray-400 text-sm">
-            @{suggestedUser.username}
+            @{suggestedUser?.username}
           </span>
         </div>
       </div>

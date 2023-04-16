@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
-const CommentBox = ({ post }: { post: Post }) => {
+const CommentBox = ({ post }: { post: PostType }) => {
   const [comment, setComment] = useState<string>("");
 
   const token = useAuthStore((store) => store.token);
