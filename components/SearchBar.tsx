@@ -21,7 +21,7 @@ const SearchBar = ({
   const { mutate, data: searchedUser } = useMutation(
     async () => {
       const res = await axios.post(
-        "http://localhost:3333/search",
+        "http://localhost:3333/user/search",
         {
           searchKey,
         }

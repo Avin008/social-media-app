@@ -32,7 +32,7 @@ const UpdatePostCard = ({
 
   const { isLoading, data, mutate } = useMutation(
     async () => {
-      const res = await axios.put(
+      const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/update`,
         { token, post }
       );

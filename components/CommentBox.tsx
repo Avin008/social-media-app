@@ -13,8 +13,8 @@ const CommentBox = ({ post }: { post: Post }) => {
 
   const { mutate } = useMutation(
     async () => {
-      const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_URL}/post/comments`,
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/post/comments/create`,
         { post, token, comment: comment }
       );
     },
