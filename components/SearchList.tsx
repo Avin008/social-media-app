@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 const SearchList = ({
   searchResult,
 }: {
-  searchResult: User[];
+  searchResult: UserType[];
 }) => {
   const router = useRouter();
 
@@ -13,10 +13,10 @@ const SearchList = ({
       <ul>
         {searchResult?.map((user) => (
           <li
-            key={user._id}
+            key={user?._id}
             className="hover:bg-[#282C37] cursor-pointer"
             onClick={() =>
-              router.push(`/feeds/profile/${user._id}`)
+              router.push(`/feeds/profile/${user?._id}`)
             }
           >
             <SearchedUser user={user} />
