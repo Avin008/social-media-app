@@ -23,9 +23,9 @@
     <li>Clone the repository: <code>git clone https://github.com/Avin008/social-media-app.git</code></li>
     <li>Install dependencies: <code>npm install</code></li>
     <li>Create a new file named <code>.env.local</code> in the root directory of the project</li>
-    <li>Add the following environment variables to the <code>.env</code> file:
+    <li>Add the following environment variables to the <code>.env.local</code> file:
       <ul>
-        <li><code>NEXT_PUBLIC_URL="https://expressjs-mongoose-production-fb7d.up.railway.app"</code>: URL OF THE BACKEND SERVER</li>
+        <li><code>NEXT_PUBLIC_URL=https://expressjs-mongoose-production-fb7d.up.railway.app</code> - URL OF THE BACKEND SERVER</li>
       </ul>
     </li>
     <li>Start the server: <code>npm run dev</code></li>
