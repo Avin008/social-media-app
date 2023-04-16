@@ -81,15 +81,16 @@ const FeedCard = ({ post }: { post: PostType }) => {
         <div className="relative">
           <span>
             <button
+              className="hover:bg-[#282C37] active:bg-[#282C50] rounded-full p-1"
               onClick={() =>
                 setTogglePostOptions((prev) => !prev)
               }
             >
-              <AiOutlineEllipsis size={25} />
+              <AiOutlineEllipsis size={20} />
             </button>
           </span>
           {togglePostOptions && (
-            <div className="absolute z-30 w-48 top-6 right-0">
+            <div className="absolute z-30 w-36 top-6 right-0">
               <ul className="text-xs flex flex-col gap-2 bg-[#282C37] py-1 rounded-md">
                 {post?.author?._id == _id && (
                   <li>
