@@ -2,6 +2,8 @@ import { useAuthStore } from "@/store/useAuthStore";
 import Avatar from "./Avatar";
 import UpdateUserProfileCard from "./UpdateProfileCard";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import axios from "axios";
 
 const UserCard = ({
   userData,
@@ -10,7 +12,9 @@ const UserCard = ({
   userData: UserType;
   postData: PostType[] | undefined;
 }) => {
-  const userId = useAuthStore((store) => store._id);
+  const { _id: userId, token } = useAuthStore(
+    (store) => store
+  );
 
   const [
     toggleUpdateProfileCard,
@@ -21,20 +25,56 @@ const UserCard = ({
     setToggleUpdateProfileCard((prev) => !prev);
   };
 
+  const queryClient = useQueryClient();
+
+  const { mutate: follow } = useMutation(
+    async () => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/user/follow`,
+        { token, followedUser: userData }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["suggestions"]);
+      },
+    }
+  );
+
+  const { mutate: unfollow } = useMutation(
+    async () => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/user/unfollow`,
+        { token, followedUser: userData }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["suggestions"]);
+      },
+    }
+  );
+
   return (
-    <div className="flex justify-between border items-center px-4 bg-[#282C37] border-gray-600 rounded-md h-40">
-      <div className="flex gap-3 items-center">
+    <div className="flex h-40 items-center justify-between rounded-md border border-gray-600 bg-[#282C37] px-4">
+      <div className="flex items-center gap-3">
         <Avatar
           image={userData?.profilePic}
           height="80px"
           width="80px"
         />
-        <div className="flex flex-col text-white leading-5">
+        <div className="flex flex-col leading-5 text-white">
           <span>{userData?.fullname}</span>
           <span className="text-xs text-gray-400">
             @{userData?.username}
           </span>
-          <div className="flex text-xs gap-3 mt-2">
+          <div className="mt-2 flex gap-3 text-xs">
             <span>{postData?.length} Posts</span>
             <span>
               {userData?.followers.length} Followers
@@ -48,19 +88,29 @@ const UserCard = ({
       <div>
         {userData?._id === userId ? (
           <button
-            className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
+            className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
             onClick={toggleProfileCardHandler}
           >
             edit profile
           </button>
+        ) : userData?.followers.includes(userId) ? (
+          <button
+            className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
+            onClick={() => unfollow()}
+          >
+            unfollow
+          </button>
         ) : (
-          <button className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full">
+          <button
+            className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
+            onClick={() => follow()}
+          >
             follow
           </button>
         )}
       </div>
       {toggleUpdateProfileCard && (
-        <div className="fixed top-0 bottom-0 flex items-center justify-center left-0 right-0 bg-black/20 z-50">
+        <div className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center bg-black/20">
           <UpdateUserProfileCard
             userData={userData}
             toggleProfileCardHandler={
