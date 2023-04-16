@@ -40,7 +40,7 @@ const PostActions = ({
 
   const { mutate: unLikePost } = useMutation(
     async () => {
-      const res = await axios.put(
+      const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/unlike`,
         { token, post }
       );
