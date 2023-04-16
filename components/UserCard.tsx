@@ -44,6 +44,23 @@ const UserCard = ({
     }
   );
 
+  const { mutate: unfollow } = useMutation(
+    async () => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/user/unfollow`,
+        { token, followedUser: userData }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["suggestions"]);
+      },
+    }
+  );
+
   return (
     <div className="flex h-40 items-center justify-between rounded-md border border-gray-600 bg-[#282C37] px-4">
       <div className="flex items-center gap-3">
@@ -77,7 +94,10 @@ const UserCard = ({
             edit profile
           </button>
         ) : userData?.followers.includes(userId) ? (
-          <button className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md">
+          <button
+            className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
+            onClick={() => unfollow()}
+          >
             unfollow
           </button>
         ) : (
