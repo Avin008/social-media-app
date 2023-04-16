@@ -50,7 +50,7 @@ const UpdatePostCard = ({
         }));
         closeUpdatePostHandler();
         toast.success(data.message);
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["users"]);
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries(["explore"]);
       },
