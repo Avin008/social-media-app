@@ -61,13 +61,22 @@ const FeedCard = ({ post }: { post: PostType }) => {
     return res.data.data.comments as CommentType[];
   });
 
-  const { mutate: unfollow } = useMutation(async () => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/user/unfollow`,
-      { token, followedUser: post?.author }
-    );
-    return res.data;
-  });
+  const { mutate: unfollow } = useMutation(
+    async () => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/user/unfollow`,
+        { token, followedUser: post?.author }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["suggestions"]);
+      },
+    }
+  );
 
   return (
     <div className="relative h-fit space-y-3 rounded-md border border-gray-600 p-4 text-white">
