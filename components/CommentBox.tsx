@@ -39,7 +39,7 @@ const CommentBox = ({ post }: { post: PostType }) => {
       />
       <button
         onClick={() => mutate()}
-        className="mx-2 text-xs text-brand"
+        className="mx-2 text-xs font-medium"
       >
         post
       </button>
