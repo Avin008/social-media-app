@@ -42,6 +42,7 @@ const CreatePostCard = ({
         toast.success("post created");
         setPost({ text: "" });
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["user"]);
       },
       onError: () => {
         toast.error("something went wrong");

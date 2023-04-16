@@ -43,6 +43,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
       onSuccess: (data) => {
         toast.success(data.message);
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["user"]);
         setTogglePostOptions(false);
       },
     }

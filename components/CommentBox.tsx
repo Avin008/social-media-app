@@ -22,6 +22,7 @@ const CommentBox = ({ post }: { post: PostType }) => {
       onSuccess: () => {
         setComment("");
         queryClient.invalidateQueries(["comments"]);
+        queryClient.invalidateQueries(["user"]);
       },
     }
   );
