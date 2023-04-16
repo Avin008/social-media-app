@@ -11,11 +11,11 @@ const UpdateUserProfileCard = ({
   userData,
   toggleProfileCardHandler,
 }: {
-  userData: User;
+  userData: UserType;
   toggleProfileCardHandler: () => void;
 }) => {
   const [updateUserData, setUpdateUserData] =
-    useState<typeof userData>(userData);
+    useState<any>(userData);
 
   const token = useAuthStore((store) => store.token);
 
@@ -27,7 +27,7 @@ const UpdateUserProfileCard = ({
   ) => {
     const { name, value } = e.currentTarget;
 
-    setUpdateUserData((prev) => ({
+    setUpdateUserData((prev: any) => ({
       ...prev,
       [name]: value,
     }));
@@ -37,7 +37,10 @@ const UpdateUserProfileCard = ({
 
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(
+  const {
+    mutate: updateProfile,
+    isLoading: isProfileUpdating,
+  } = useMutation(
     async () => {
       const formData = new FormData();
       formData.append("fullname", updateUserData.fullname);
@@ -69,7 +72,7 @@ const UpdateUserProfileCard = ({
       <Avatar
         width={"60px"}
         height={"60px"}
-        image={updateUserData.profilePic}
+        image={updateUserData?.profilePic}
       />
       <button
         className="text-brand font-medium"
@@ -88,7 +91,7 @@ const UpdateUserProfileCard = ({
           className="bg-transparent px-3 rounded-md border p-2 w-full"
           type="text"
           name="fullname"
-          value={updateUserData.fullname}
+          value={updateUserData?.fullname}
           onChange={inputHandler}
         />
       </div>
@@ -101,7 +104,7 @@ const UpdateUserProfileCard = ({
           placeholder="johndoe776"
           type="text"
           name="username"
-          value={updateUserData.username}
+          value={updateUserData?.username}
           onChange={inputHandler}
         />
       </div>
@@ -128,7 +131,7 @@ const UpdateUserProfileCard = ({
           placeholder="johndoe@gmail.com"
           type="email"
           name="email"
-          value={updateUserData.email}
+          value={updateUserData?.email}
           onChange={inputHandler}
         />
       </div>
@@ -141,7 +144,7 @@ const UpdateUserProfileCard = ({
           placeholder="johndoe@gmail.com"
           type="password"
           name="password"
-          value={updateUserData.password}
+          value={updateUserData?.password}
           onChange={inputHandler}
         />
       </div>
@@ -149,10 +152,10 @@ const UpdateUserProfileCard = ({
         <button
           className="w-full p-2 flex items-center justify-center rounded-md bg-brand text-white"
           onClick={() => {
-            mutate();
+            updateProfile();
           }}
         >
-          {!isLoading ? (
+          {!isProfileUpdating ? (
             "Update Profile"
           ) : (
             <ClipLoader size={20} color="white" />

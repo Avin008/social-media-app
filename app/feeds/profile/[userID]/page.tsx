@@ -10,25 +10,31 @@ const ProfilePage = () => {
 
   const dynamicPath = pathname.split("/").slice(-1).join();
 
-  const { data, isLoading } = useQuery(
-    ["user"],
-    async () => {
+  const { data: userData, isLoading: isUserDataLoading } =
+    useQuery(["user"], async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/user`,
         { _id: dynamicPath }
       );
 
-      return res.data;
-    }
-  );
+      return res.data.data as {
+        userData: UserType;
+        postData: PostType[];
+      };
+    });
 
   return (
     <div className="p-2 flex flex-col gap-2">
-      {!isLoading && <UserCard data={data.data} />}
-      {!isLoading && (
+      {!isUserDataLoading && (
+        <UserCard
+          userData={userData?.userData}
+          postData={userData?.postData}
+        />
+      )}
+      {!isUserDataLoading && (
         <>
-          {data.data.postData.map((x: any) => (
-            <FeedCard post={x} key={x._id} />
+          {userData?.postData?.map((post: PostType) => (
+            <FeedCard post={post} key={post?._id} />
           ))}
         </>
       )}
