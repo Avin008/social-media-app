@@ -13,7 +13,7 @@ const UserFeedsPage = () => {
         `${process.env.NEXT_PUBLIC_URL}/post`,
         token
       );
-      return res.data.data.postData as PostType[];
+      return res.data.data.posts as PostType[];
     });
 
   const { data: userData, isLoading: isUserDataLoading } =
