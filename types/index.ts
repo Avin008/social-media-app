@@ -19,6 +19,7 @@ type PostType =
       _id: string;
       author: UserType;
       text: string;
+      img: string;
       createdAt: number;
       updatedAt: number;
     }

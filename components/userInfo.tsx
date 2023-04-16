@@ -1,13 +1,13 @@
 const UserInfo = ({
   username,
-  fullName,
+  fullname,
 }: {
-  username: string;
-  fullName: string;
+  username: string | undefined;
+  fullname: string | undefined;
 }) => {
   return (
     <div className="flex flex-col">
-      <span className="text-sm">{fullName}</span>
+      <span className="text-sm">{fullname}</span>
       <span className="text-xs text-gray-400 font-medium">
         @{username}
       </span>

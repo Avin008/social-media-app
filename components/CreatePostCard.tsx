@@ -3,14 +3,13 @@ import { useRef, useState } from "react";
 import Avatar from "./Avatar";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 
 const CreatePostCard = ({
   userData,
 }: {
-  userData: User;
+  userData: UserType;
 }) => {
   const [post, setPost] = useState<{ text: string }>({
     text: "",
@@ -25,11 +24,12 @@ const CreatePostCard = ({
 
   const { token } = useAuthStore((store) => store);
 
-  const router = useRouter();
-
   const queryClient = useQueryClient();
 
-  const { isLoading, data, mutate } = useMutation(
+  const {
+    isLoading: isCreatingPostLoading,
+    mutate: createPost,
+  } = useMutation(
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/create`,
@@ -38,12 +38,12 @@ const CreatePostCard = ({
       return res.data;
     },
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         toast.success("post created");
         setPost({ text: "" });
         queryClient.invalidateQueries(["posts"]);
       },
-      onError: (error) => {
+      onError: () => {
         toast.error("something went wrong");
       },
     }
@@ -75,10 +75,11 @@ const CreatePostCard = ({
           accept=".png,.jpg,.jpeg"
         />
         <button
-          onClick={() => mutate()}
           className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
+          disabled={isCreatingPostLoading}
+          onClick={() => createPost()}
         >
-          post
+          {isCreatingPostLoading ? "posting" : "post"}
         </button>
       </div>
     </div>

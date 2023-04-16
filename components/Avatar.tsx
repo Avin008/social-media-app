@@ -5,7 +5,7 @@ const Avatar = ({
   height,
   width,
 }: {
-  image: string;
+  image: string | undefined;
   height?: string;
   width?: string;
 }) => {
@@ -19,7 +19,7 @@ const Avatar = ({
     >
       <Image
         className="rounded-full"
-        src={image}
+        src={!image ? "./social.svg" : image}
         alt=""
         fill
       />

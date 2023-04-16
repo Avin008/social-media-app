@@ -11,12 +11,12 @@ import {
 } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import UpdatePostCard from "./UpdatePostCard";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const FeedCard = ({ post }: { post: Post }) => {
+const FeedCard = ({ post }: { post: PostType }) => {
   const [togglePostOptions, setTogglePostOptions] =
     useState<boolean>(false);
 
@@ -31,7 +31,7 @@ const FeedCard = ({ post }: { post: Post }) => {
 
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError, mutate } = useMutation(
+  const { mutate: deletePost } = useMutation(
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/delete`,
@@ -49,24 +49,24 @@ const FeedCard = ({ post }: { post: Post }) => {
   );
 
   const {
-    data: comments,
+    data: commentsData,
     isLoading: isCommentsDataLoading,
   } = useQuery(["comments"], async () => {
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/post/comments`,
       { token, post }
     );
-    return res.data;
+    return res.data.data.comments as CommentType[];
   });
 
   return (
     <div className="border p-4 text-white border-gray-600 h-fit relative rounded-md space-y-3">
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
-          <Avatar image={post.author.profilePic} />
+          <Avatar image={post?.author?.profilePic} />
           <UserInfo
-            username={post.author.username}
-            fullName={post.author.fullname}
+            username={post?.author?.username}
+            fullname={post?.author?.fullname}
           />
         </div>
         <div className="relative">
@@ -82,7 +82,7 @@ const FeedCard = ({ post }: { post: Post }) => {
           {togglePostOptions && (
             <div className="absolute z-30 w-48 top-6 right-0">
               <ul className="text-xs flex flex-col gap-2 bg-[#282C37] py-1 rounded-md">
-                {post.author._id == _id && (
+                {post?.author?._id == _id && (
                   <li>
                     <button
                       className="px-2 w-full p-1 hover:bg-brand"
@@ -94,22 +94,19 @@ const FeedCard = ({ post }: { post: Post }) => {
                     </button>
                   </li>
                 )}
-                {post.author._id === _id && (
+                {post?.author?._id === _id && (
                   <li>
                     <button
                       className="p-1 hover:bg-brand w-full"
-                      onClick={() => mutate()}
+                      onClick={() => deletePost()}
                     >
                       remove post
                     </button>
                   </li>
                 )}
-                {post.author._id !== _id && (
+                {post?.author?._id !== _id && (
                   <li>
-                    <button
-                      className="px-2 w-full p-1 hover:bg-brand"
-                      onClick={() => mutate()}
-                    >
+                    <button className="px-2 w-full p-1 hover:bg-brand">
                       unfollow
                     </button>
                   </li>
@@ -119,20 +116,20 @@ const FeedCard = ({ post }: { post: Post }) => {
           )}
         </div>
       </div>
-      <div className="">{post.text}</div>
-      {post.img && <PostImage postImg={post.img} />}
-      <PostActions
-        post={post}
-        comment={comments?.data.comments}
-      />
-      {comments?.data.comments.length > 0 && (
+      <div className="">{post?.text}</div>
+      {post?.img && <PostImage postImg={post?.img} />}
+      <PostActions post={post} comment={commentsData} />
+      {commentsData?.length && (
         <div className="flex flex-col gap-2">
           <span className="text-sm">Comments</span>
-          {comments.data.comments
-            .filter((x: any) => x.post_id === post._id)
-            .map((comment: any) => (
+          {commentsData
+            .filter(
+              (comment: CommentType) =>
+                comment?.post_id === post?._id
+            )
+            .map((comment: CommentType) => (
               <UserComment
-                key={comment._id}
+                key={comment?._id}
                 comment={comment}
               />
             ))}
