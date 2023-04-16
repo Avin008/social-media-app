@@ -5,9 +5,9 @@ import FeedCard from "@/components/FeedCard";
 
 const ExplorePage = () => {
   const { data: postData, isLoading: isPostDataLoading } =
-    useQuery(["posts"], async () => {
+    useQuery(["explore"], async () => {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL}/posts/explore`
+        `${process.env.NEXT_PUBLIC_URL}/post/explore`
       );
       return res.data.data.posts as PostType[];
     });

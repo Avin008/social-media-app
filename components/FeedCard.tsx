@@ -44,6 +44,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
         toast.success(data.message);
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["explore"]);
         setTogglePostOptions(false);
       },
     }
@@ -69,8 +70,8 @@ const FeedCard = ({ post }: { post: PostType }) => {
   });
 
   return (
-    <div className="border p-4 text-white border-gray-600 h-fit relative rounded-md space-y-3">
-      <div className="flex justify-between items-center">
+    <div className="relative h-fit space-y-3 rounded-md border border-gray-600 p-4 text-white">
+      <div className="flex items-center justify-between">
         <div className="flex gap-2">
           <Avatar image={post?.author?.profilePic} />
           <UserInfo
@@ -81,7 +82,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
         <div className="relative">
           <span>
             <button
-              className="hover:bg-[#282C37] active:bg-[#282C50] rounded-full p-1"
+              className="rounded-full p-1 hover:bg-[#282C37] active:bg-[#282C50]"
               onClick={() =>
                 setTogglePostOptions((prev) => !prev)
               }
@@ -90,12 +91,12 @@ const FeedCard = ({ post }: { post: PostType }) => {
             </button>
           </span>
           {togglePostOptions && (
-            <div className="absolute z-30 w-36 top-6 right-0">
-              <ul className="text-xs flex flex-col gap-2 bg-[#282C37] py-1 rounded-md">
+            <div className="absolute right-0 top-6 z-30 w-36">
+              <ul className="flex flex-col gap-2 rounded-md bg-[#282C37] py-1 text-xs">
                 {post?.author?._id == _id && (
                   <li>
                     <button
-                      className="px-2 w-full p-1 hover:bg-brand"
+                      className="w-full p-1 px-2 hover:bg-brand"
                       onClick={() =>
                         closeUpdatePostHandler()
                       }
@@ -107,7 +108,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
                 {post?.author?._id === _id && (
                   <li>
                     <button
-                      className="p-1 hover:bg-brand w-full"
+                      className="w-full p-1 hover:bg-brand"
                       onClick={() => deletePost()}
                     >
                       remove post
@@ -117,7 +118,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
                 {post?.author?._id !== _id && (
                   <li>
                     <button
-                      className="px-2 w-full p-1 hover:bg-brand"
+                      className="w-full p-1 px-2 hover:bg-brand"
                       onClick={() => {
                         unfollow();
                       }}
@@ -151,8 +152,8 @@ const FeedCard = ({ post }: { post: PostType }) => {
         </div>
       )}
       {toggleEditPostModal && (
-        <div className="fixed z-50 top-0 flex items-center justify-center bottom-0 left-0 right-0 bg-black/60">
-          <div className="w-[45%] bg-[#282C37] p-2 rounded-md">
+        <div className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="w-[45%] rounded-md bg-[#282C37] p-2">
             <UpdatePostCard
               closeUpdatePostHandler={
                 closeUpdatePostHandler

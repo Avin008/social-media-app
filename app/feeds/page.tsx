@@ -4,6 +4,7 @@ import FeedCard from "@/components/FeedCard";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
+import { ClipLoader } from "react-spinners";
 
 const UserFeedsPage = () => {
   const { token, _id } = useAuthStore((store) => store);
@@ -55,11 +56,23 @@ const UserFeedsPage = () => {
           userData={userData}
         />
       )}
+      {isPostDataLoading && isUserDataLoading && (
+        <div className="flex h-screen items-center justify-center">
+          <ClipLoader color="white" size={25} />
+        </div>
+      )}
       {!isPostDataLoading &&
-        !isUserDataLoading &&
-        postData?.map((post: PostType) => (
+      !isUserDataLoading &&
+      postData?.length > 0 ? (
+        postData.map((post: PostType) => (
           <FeedCard key={post?._id} post={post} />
-        ))}
+        ))
+      ) : (
+        <div className="flex items-center justify-center text-xs">
+          you are not following anyone, follow users to view
+          their posts
+        </div>
+      )}
     </div>
   );
 };

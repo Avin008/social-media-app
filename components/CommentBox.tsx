@@ -23,14 +23,15 @@ const CommentBox = ({ post }: { post: PostType }) => {
         setComment("");
         queryClient.invalidateQueries(["comments"]);
         queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["explore"]);
       },
     }
   );
 
   return (
-    <div className="focus-within:border focus-within:border-brand border flex w-full  items-center rounded-md h-full">
+    <div className="flex h-full w-full items-center rounded-md  border focus-within:border focus-within:border-brand">
       <input
-        className="w-full h-full outline-none rounded-md bg-transparent px-2 p-1"
+        className="h-full w-full rounded-md bg-transparent p-1 px-2 outline-none"
         type="text"
         placeholder="comment here..."
         value={comment}

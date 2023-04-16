@@ -32,6 +32,7 @@ const PostActions = ({
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["explore"]);
       },
       onError: () => {
         toast.error("something went wrong");
@@ -51,6 +52,7 @@ const PostActions = ({
       onSuccess: () => {
         queryClient.invalidateQueries(["user"]);
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["explore"]);
       },
       onError: () => {
         toast.error("something went wrong");
