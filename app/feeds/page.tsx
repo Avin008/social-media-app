@@ -11,7 +11,7 @@ const UserFeedsPage = () => {
     ["posts"],
     async () => {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL}/posts`,
+        `${process.env.NEXT_PUBLIC_URL}/post`,
         token
       );
       return res.data;
@@ -25,6 +25,7 @@ const UserFeedsPage = () => {
         `${process.env.NEXT_PUBLIC_URL}/user`,
         {
           _id,
+          token: token,
         }
       );
       return res.data;

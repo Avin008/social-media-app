@@ -32,7 +32,7 @@ const CreatePostCard = ({
   const { isLoading, data, mutate } = useMutation(
     async () => {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL}/post`,
+        `${process.env.NEXT_PUBLIC_URL}/post/create`,
         { token, post }
       );
       return res.data;
