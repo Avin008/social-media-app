@@ -31,7 +31,7 @@ const PostActions = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["users"]);
         queryClient.invalidateQueries(["explore"]);
       },
       onError: () => {
@@ -50,7 +50,7 @@ const PostActions = ({
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["users"]);
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries(["explore"]);
       },

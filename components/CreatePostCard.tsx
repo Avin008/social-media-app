@@ -42,7 +42,8 @@ const CreatePostCard = ({
         toast.success("post created");
         setPost({ text: "" });
         queryClient.invalidateQueries(["posts"]);
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["explore"]);
       },
       onError: () => {
         toast.error("something went wrong");
@@ -56,9 +57,9 @@ const CreatePostCard = ({
         <div className="w-[10%]">
           <Avatar image={userData?.profilePic} />
         </div>
-        <div className="w-[90%] border rounded-md">
+        <div className="w-[90%] rounded-md border">
           <textarea
-            className="w-full p-2 resize-none border-none outline-none bg-transparent"
+            className="w-full resize-none border-none bg-transparent p-2 outline-none"
             name="text"
             id=""
             value={post.text}
@@ -67,7 +68,7 @@ const CreatePostCard = ({
           ></textarea>
         </div>
       </div>
-      <div className="flex justify-end p-2 gap-2">
+      <div className="flex justify-end gap-2 p-2">
         <input
           className="hidden"
           type="file"
@@ -76,7 +77,7 @@ const CreatePostCard = ({
           accept=".png,.jpg,.jpeg"
         />
         <button
-          className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
+          className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
           disabled={isCreatingPostLoading}
           onClick={() => createPost()}
         >
