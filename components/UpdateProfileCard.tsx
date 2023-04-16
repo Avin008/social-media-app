@@ -61,46 +61,46 @@ const UpdateUserProfileCard = ({
     {
       onSuccess: (data) => {
         toast.success(data.message);
-        queryClient.invalidateQueries(["user"]);
+        queryClient.invalidateQueries(["users"]);
         toggleProfileCardHandler();
       },
     }
   );
 
   return (
-    <div className="p-5 text-white text-sm shadow-md flex flex-col items-center gap-5 py-5 bg-[#1E1F23] border-white h-fit w-96 rounded-md">
+    <div className="flex h-fit w-96 flex-col items-center gap-5 rounded-md border-white bg-[#1E1F23] p-5 py-5 text-sm text-white shadow-md">
       <Avatar
         width={"60px"}
         height={"60px"}
         image={updateUserData?.profilePic}
       />
-      <button
-        className="text-brand font-medium"
+      {/* <button
+        className="font-medium text-brand"
         onClick={() => {
           imgUploadRef.current?.click();
         }}
       >
         change profile pic
-      </button>
-      <div className="flex flex-col w-full gap-2">
+      </button> */}
+      <div className="flex w-full flex-col gap-2">
         <label className="text-white" htmlFor="fullname">
           fullname
         </label>
         <input
           placeholder="john doe"
-          className="bg-transparent px-3 rounded-md border p-2 w-full"
+          className="w-full rounded-md border bg-transparent p-2 px-3"
           type="text"
           name="fullname"
           value={updateUserData?.fullname}
           onChange={inputHandler}
         />
       </div>
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <label className="text-white" htmlFor="fullname">
           username
         </label>
         <input
-          className="bg-transparent rounded-md px-3 border p-2 w-full"
+          className="w-full rounded-md border bg-transparent p-2 px-3"
           placeholder="johndoe776"
           type="text"
           name="username"
@@ -108,9 +108,9 @@ const UpdateUserProfileCard = ({
           onChange={inputHandler}
         />
       </div>
-      <div className="flex-col hidden gap-2 w-full">
+      <div className="hidden w-full flex-col gap-2">
         <input
-          className="bg-transparent hidden rounded-md px-3 border p-2 w-full"
+          className="hidden w-full rounded-md border bg-transparent p-2 px-3"
           placeholder="johndoe776"
           type="file"
           ref={imgUploadRef}
@@ -127,7 +127,7 @@ const UpdateUserProfileCard = ({
           email
         </label>
         <input
-          className="bg-transparent rounded-md px-3 border p-2 w-full"
+          className="w-full rounded-md border bg-transparent p-2 px-3"
           placeholder="johndoe@gmail.com"
           type="email"
           name="email"
@@ -140,7 +140,7 @@ const UpdateUserProfileCard = ({
           password
         </label>
         <input
-          className="bg-transparent rounded-md px-3 border p-2 w-full"
+          className="w-full rounded-md border bg-transparent p-2 px-3"
           placeholder="johndoe@gmail.com"
           type="password"
           name="password"
@@ -148,9 +148,9 @@ const UpdateUserProfileCard = ({
           onChange={inputHandler}
         />
       </div>
-      <div className="flex flex-col w-full gap-2">
+      <div className="flex w-full flex-col gap-2">
         <button
-          className="w-full p-2 flex items-center justify-center rounded-md bg-brand text-white"
+          className="flex w-full items-center justify-center rounded-md bg-brand p-2 text-white"
           onClick={() => {
             updateProfile();
           }}
@@ -162,7 +162,7 @@ const UpdateUserProfileCard = ({
           )}
         </button>
         <button
-          className="w-full p-2 rounded-md border border-brand text-brand font-semibold"
+          className="w-full rounded-md border border-brand p-2 font-semibold text-brand"
           onClick={toggleProfileCardHandler}
         >
           Cancel
