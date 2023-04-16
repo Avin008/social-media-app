@@ -11,7 +11,7 @@ const ProfilePage = () => {
   const dynamicPath = pathname.split("/").slice(-1).join();
 
   const { data: userData, isLoading: isUserDataLoading } =
-    useQuery(["profile"], async () => {
+    useQuery(["users"], async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/user`,
         { _id: dynamicPath }
