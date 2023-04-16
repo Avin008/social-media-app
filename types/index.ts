@@ -1,28 +1,34 @@
-type User = {
-  _id: string;
-  profilePic: string;
-  email: string;
-  fullname: string;
-  username: string;
-  password: string;
-  followers: string[];
-  following: string[];
-};
+type FollowersType = string;
+type FollowingType = string;
 
-type Comments = {
-  _id: string;
-  author: User;
-  comment: string;
-  createdAt: Date;
-};
+type UserType =
+  | {
+      _id: string;
+      profilePic: string;
+      fullname: string;
+      username: string;
+      email: string;
+      followers: FollowersType[];
+      following: FollowingType[];
+    }
+  | undefined;
 
-type Post = {
-  _id: string;
-  img: string;
-  author: User;
-  text: string;
-  likes: string[];
-  comments: Comments[];
-  createdAt: Date;
-  updatedAt: Date;
-};
+type PostType =
+  | {
+      likes: string[];
+      _id: string;
+      author: UserType;
+      text: string;
+      createdAt: number;
+      updatedAt: number;
+    }
+  | undefined;
+
+type CommentType =
+  | {
+      _id: string;
+      post_id: string;
+      author: UserType;
+      comment: string;
+    }
+  | undefined;
