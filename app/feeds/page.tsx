@@ -7,14 +7,6 @@ import { useAuthStore } from "@/store/useAuthStore";
 
 const UserFeedsPage = () => {
   const { token, _id } = useAuthStore((store) => store);
-  const { data: postData, isLoading: isPostDataLoading } =
-    useQuery(["posts"], async () => {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL}/post`,
-        token
-      );
-      return res.data.data.posts as PostType[];
-    });
 
   const { data: userData, isLoading: isUserDataLoading } =
     useQuery(["user"], async () => {
@@ -28,8 +20,35 @@ const UserFeedsPage = () => {
       return res.data.data.userData as UserType;
     });
 
+  const { data: postData, isLoading: isPostDataLoading } =
+    useQuery(
+      ["posts"],
+      async () => {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_URL}/post`,
+          { token: token }
+        );
+        return res.data.data.posts as PostType[];
+      },
+      {
+        select: (postData: any) => {
+          const folowingUserPostAndUserPost =
+            postData?.filter(
+              (post: any) =>
+                userData?.following.includes(
+                  post.author?._id
+                ) || post?.author?._id === _id
+            );
+
+          return folowingUserPostAndUserPost.sort(
+            (a: any, b: any) => b?.createdAt - a?.createdAt
+          );
+        },
+      }
+    );
+
   return (
-    <div className="text-white m-2 flex flex-col gap-2">
+    <div className="m-2 flex flex-col gap-2 text-white">
       {!isUserDataLoading && (
         <CreatePostCard
           key={userData?._id}
@@ -37,6 +56,7 @@ const UserFeedsPage = () => {
         />
       )}
       {!isPostDataLoading &&
+        !isUserDataLoading &&
         postData?.map((post: PostType) => (
           <FeedCard key={post?._id} post={post} />
         ))}

@@ -7,15 +7,15 @@ const ExplorePage = () => {
   const { data: postData, isLoading: isPostDataLoading } =
     useQuery(["posts"], async () => {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL}/posts`
+        `${process.env.NEXT_PUBLIC_URL}/posts/explore`
       );
       return res.data.data.posts as PostType[];
     });
 
   return (
-    <div className="p-2 flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-2">
       <div>
-        <span className="text-white font-medium px-4">
+        <span className="px-4 font-medium text-white">
           # Explore
         </span>
       </div>

@@ -25,6 +25,7 @@ const SuggestedFollowerCard = ({
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["posts"]);
         toast.success(
           `you are now following ${data.data.followedUser.fullname}`
         );
@@ -36,21 +37,21 @@ const SuggestedFollowerCard = ({
   );
 
   return (
-    <div className="h-14 rounded-md flex gap-3 justify-between items-center px-2">
+    <div className="flex h-14 items-center justify-between gap-3 rounded-md px-2">
       <div className="flex gap-3">
         <Avatar image={suggestedUser?.profilePic} />
         <div className="flex flex-col leading-5">
           <span className="text-white">
             {suggestedUser?.fullname}
           </span>
-          <span className="text-gray-400 text-sm">
+          <span className="text-sm text-gray-400">
             @{suggestedUser?.username}
           </span>
         </div>
       </div>
       <button
         onClick={() => mutate()}
-        className="text-white text-sm bg-brand px-4 font-medium shadow-md py-1 rounded-full"
+        className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
       >
         follow
       </button>
