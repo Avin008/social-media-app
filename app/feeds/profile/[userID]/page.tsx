@@ -45,7 +45,7 @@ const ProfilePage = () => {
         ) : (
           <div className="flex h-40 items-center justify-center">
             <span className="text-xs text-white">
-              you haven't posted anything yet!
+              you haven&apos;t posted anything yet!
             </span>
           </div>
         )}
