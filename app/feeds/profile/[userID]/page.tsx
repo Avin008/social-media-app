@@ -2,13 +2,14 @@
 import FeedCard from "@/components/FeedCard";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import UserCard from "@/components/UserCard";
+import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useQuery } from "react-query";
-import { ClipLoader } from "react-spinners";
 
 const ProfilePage = () => {
   const pathname = usePathname();
+  const userId = useAuthStore((store) => store._id);
 
   const dynamicPath = pathname.split("/").slice(-1).join();
 
@@ -40,9 +41,15 @@ const ProfilePage = () => {
           ))
         ) : (
           <div className="flex h-40 items-center justify-center">
-            <span className="text-xs text-white">
-              you haven&apos;t posted anything yet!
-            </span>
+            {userData?.userData?._id === userId ? (
+              <span className="text-xs text-white">
+                you haven&apos;t posted anything yet!
+              </span>
+            ) : (
+              <span className="text-xs text-white">
+                user haven&apos;t posted anything yet!
+              </span>
+            )}
           </div>
         )}
       </>
