@@ -1,5 +1,6 @@
 "use client";
 import FeedCard from "@/components/FeedCard";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import UserCard from "@/components/UserCard";
 import axios from "axios";
 import { usePathname } from "next/navigation";
@@ -24,12 +25,7 @@ const ProfilePage = () => {
       };
     });
 
-  if (isUserDataLoading)
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <ClipLoader color="white" size={25} />
-      </div>
-    );
+  if (isUserDataLoading) return <LoadingSpinner />;
 
   return (
     <div className="flex flex-col gap-2 p-2">

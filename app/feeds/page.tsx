@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ClipLoader } from "react-spinners";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const UserFeedsPage = () => {
   const { token, _id } = useAuthStore((store) => store);
@@ -49,11 +50,7 @@ const UserFeedsPage = () => {
     );
 
   if (isPostDataLoading && isUserDataLoading)
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <ClipLoader color="white" size={25} />
-      </div>
-    );
+    return <LoadingSpinner />;
 
   return (
     <div className="m-2 flex flex-col gap-2 text-white">
