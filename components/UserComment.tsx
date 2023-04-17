@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import Avatar from "./Avatar";
 
 const UserComment = ({
@@ -5,13 +6,22 @@ const UserComment = ({
 }: {
   comment: CommentType;
 }) => {
+  const router = useRouter();
+
   return (
-    <div className="items-center flex gap-1">
+    <div className="flex items-center gap-1">
       <div className="w-[10%]">
         <Avatar image={comment?.author?.profilePic} />
       </div>
-      <div className="w-[90%] flex flex-col leading-4">
-        <span className="text-xs text-gray-400">
+      <div className="flex w-[90%] flex-col leading-4">
+        <span
+          onClick={() =>
+            router.push(
+              `/feeds/profile/${comment?.author?._id}`
+            )
+          }
+          className="text-xs text-gray-400 hover:cursor-pointer hover:text-brand"
+        >
           @{comment?.author?.fullname}
         </span>
         <span className="text-xs">{comment?.comment}</span>

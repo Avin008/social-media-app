@@ -4,6 +4,7 @@ import Avatar from "./Avatar";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SuggestedFollowerCard = ({
   suggestedUser,
@@ -13,6 +14,7 @@ const SuggestedFollowerCard = ({
   const token = useAuthStore((store) => store.token);
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { mutate } = useMutation(
     async () => {
@@ -42,7 +44,14 @@ const SuggestedFollowerCard = ({
       <div className="flex gap-3">
         <Avatar image={suggestedUser?.profilePic} />
         <div className="flex flex-col leading-5">
-          <span className="text-white">
+          <span
+            className="cursor-pointer text-white hover:text-brand"
+            onClick={() =>
+              router.push(
+                `/feeds/profile/${suggestedUser?._id}`
+              )
+            }
+          >
             {suggestedUser?.fullname}
           </span>
           <span className="text-sm text-gray-400">

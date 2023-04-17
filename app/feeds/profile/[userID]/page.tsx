@@ -1,12 +1,15 @@
 "use client";
 import FeedCard from "@/components/FeedCard";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import UserCard from "@/components/UserCard";
+import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useQuery } from "react-query";
 
 const ProfilePage = () => {
   const pathname = usePathname();
+  const userId = useAuthStore((store) => store._id);
 
   const dynamicPath = pathname.split("/").slice(-1).join();
 
@@ -23,21 +26,33 @@ const ProfilePage = () => {
       };
     });
 
+  if (isUserDataLoading) return <LoadingSpinner />;
+
   return (
     <div className="flex flex-col gap-2 p-2">
-      {!isUserDataLoading && (
-        <UserCard
-          userData={userData?.userData}
-          postData={userData?.postData}
-        />
-      )}
-      {!isUserDataLoading && (
-        <>
-          {userData?.postData?.map((post: PostType) => (
+      <UserCard
+        userData={userData?.userData}
+        postData={userData?.postData}
+      />
+      <>
+        {userData?.postData?.length ? (
+          userData?.postData?.map((post: PostType) => (
             <FeedCard post={post} key={post?._id} />
-          ))}
-        </>
-      )}
+          ))
+        ) : (
+          <div className="flex h-40 items-center justify-center">
+            {userData?.userData?._id === userId ? (
+              <span className="text-xs text-white">
+                you haven&apos;t posted anything yet!
+              </span>
+            ) : (
+              <span className="text-xs text-white">
+                user haven&apos;t posted anything yet!
+              </span>
+            )}
+          </div>
+        )}
+      </>
     </div>
   );
 };

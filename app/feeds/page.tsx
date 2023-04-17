@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ClipLoader } from "react-spinners";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const UserFeedsPage = () => {
   const { token, _id } = useAuthStore((store) => store);
@@ -48,29 +49,25 @@ const UserFeedsPage = () => {
       }
     );
 
+  if (isPostDataLoading && isUserDataLoading)
+    return <LoadingSpinner />;
+
   return (
     <div className="m-2 flex flex-col gap-2 text-white">
-      {!isUserDataLoading && (
-        <CreatePostCard
-          key={userData?._id}
-          userData={userData}
-        />
-      )}
-      {isPostDataLoading && isUserDataLoading && (
-        <div className="flex h-screen items-center justify-center">
-          <ClipLoader color="white" size={25} />
-        </div>
-      )}
-      {!isPostDataLoading &&
-      !isUserDataLoading &&
-      postData?.length > 0 ? (
+      <CreatePostCard
+        key={userData?._id}
+        userData={userData}
+      />
+      {postData?.length > 0 ? (
         postData.map((post: PostType) => (
           <FeedCard key={post?._id} post={post} />
         ))
       ) : (
-        <div className="flex items-center justify-center text-xs">
-          you are not following anyone, follow users to view
-          their posts
+        <div className="flex h-40 items-center justify-center">
+          <span className="text-xs text-white">
+            you are not following anyone, follow people to
+            view posts
+          </span>
         </div>
       )}
     </div>

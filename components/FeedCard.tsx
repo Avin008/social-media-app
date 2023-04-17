@@ -86,6 +86,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
           <UserInfo
             username={post?.author?.username}
             fullname={post?.author?.fullname}
+            authorId={post?.author?._id}
           />
         </div>
         <div className="relative">
