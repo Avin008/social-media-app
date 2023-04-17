@@ -15,11 +15,13 @@ const Avatar = ({
         width: width ? width : "40px",
         height: height ? height : "40px",
       }}
-      className="border relative rounded-full"
+      className={`relative rounded-full border ${
+        !image && "bg-gray-400"
+      }`}
     >
       <Image
         className="rounded-full"
-        src={!image ? "./social.svg" : image}
+        src={!image ? "" : image}
         alt=""
         fill
       />
