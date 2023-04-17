@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import FeedCard from "@/components/FeedCard";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 const ExplorePage = () => {
   const { data: postData, isLoading: isPostDataLoading } =
@@ -11,6 +12,8 @@ const ExplorePage = () => {
       );
       return res.data.data.posts as PostType[];
     });
+
+  if (isPostDataLoading) return <LoadingSpinner />;
 
   return (
     <div className="flex flex-col gap-2 p-2">
