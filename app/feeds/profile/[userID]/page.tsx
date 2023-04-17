@@ -4,6 +4,7 @@ import UserCard from "@/components/UserCard";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useQuery } from "react-query";
+import { ClipLoader } from "react-spinners";
 
 const ProfilePage = () => {
   const pathname = usePathname();
@@ -23,21 +24,32 @@ const ProfilePage = () => {
       };
     });
 
+  if (isUserDataLoading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <ClipLoader color="white" size={25} />
+      </div>
+    );
+
   return (
     <div className="flex flex-col gap-2 p-2">
-      {!isUserDataLoading && (
-        <UserCard
-          userData={userData?.userData}
-          postData={userData?.postData}
-        />
-      )}
-      {!isUserDataLoading && (
-        <>
-          {userData?.postData?.map((post: PostType) => (
+      <UserCard
+        userData={userData?.userData}
+        postData={userData?.postData}
+      />
+      <>
+        {userData?.postData?.length ? (
+          userData?.postData?.map((post: PostType) => (
             <FeedCard post={post} key={post?._id} />
-          ))}
-        </>
-      )}
+          ))
+        ) : (
+          <div className="flex h-40 items-center justify-center">
+            <span className="text-xs text-white">
+              you haven't posted anything yet!
+            </span>
+          </div>
+        )}
+      </>
     </div>
   );
 };
