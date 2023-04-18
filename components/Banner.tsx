@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <div>
       <Image
-        src="/social.svg"
+        src="/banner.svg"
         alt=""
         width={450}
         height={500}
