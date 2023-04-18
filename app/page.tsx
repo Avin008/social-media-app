@@ -27,7 +27,7 @@ export default function Home() {
         <div className="flex items-center justify-center">
           <Banner />
         </div>
-        <div>
+        <div className="flex items-center justify-between">
           {currentForm === "login-form" ? (
             <LoginForm
               changeFormHandler={changeFormHandler}
