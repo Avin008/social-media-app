@@ -21,10 +21,12 @@ export default function Home() {
   };
 
   return (
-    <main className="h-screen bg-background flex items-center">
+    <main className="flex h-screen items-center bg-background">
       <Navbar />
-      <div className="h-96 w-full grid grid-cols-2">
-        <Banner />
+      <div className="grid h-96 w-full grid-cols-2">
+        <div className="flex items-center justify-center">
+          <Banner />
+        </div>
         <div>
           {currentForm === "login-form" ? (
             <LoginForm
