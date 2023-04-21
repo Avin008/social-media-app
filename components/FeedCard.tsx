@@ -79,7 +79,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
   );
 
   return (
-    <div className="relative h-fit space-y-3 rounded-md border border-gray-600 p-4 text-white">
+    <div className="relative flex h-fit flex-col gap-3 rounded-md border border-gray-600 p-4 text-white">
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
           <Avatar image={post?.author?.profilePic} />
