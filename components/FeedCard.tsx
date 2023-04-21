@@ -74,6 +74,25 @@ const FeedCard = ({ post }: { post: PostType }) => {
         queryClient.invalidateQueries(["users"]);
         queryClient.invalidateQueries(["posts"]);
         queryClient.invalidateQueries(["suggestions"]);
+        queryClient.invalidateQueries(["explore"]);
+      },
+    }
+  );
+
+  const { mutate: follow } = useMutation(
+    async () => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/user/follow`,
+        { token, followedUser: post?.author }
+      );
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["users"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["suggestions"]);
+        queryClient.invalidateQueries(["explore"]);
       },
     }
   );
@@ -125,7 +144,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
                     </button>
                   </li>
                 )}
-                {post?.author?._id !== _id && (
+                {post?.author?.followers.includes(_id) && (
                   <li>
                     <button
                       className="w-full p-1 px-2 hover:bg-brand"
@@ -137,6 +156,21 @@ const FeedCard = ({ post }: { post: PostType }) => {
                     </button>
                   </li>
                 )}
+                {post?.author?._id !== _id &&
+                  !post?.author?.followers?.includes(
+                    _id
+                  ) && (
+                    <li>
+                      <button
+                        className="w-full p-1 px-2 hover:bg-brand"
+                        onClick={() => {
+                          follow();
+                        }}
+                      >
+                        follow
+                      </button>
+                    </li>
+                  )}
               </ul>
             </div>
           )}
