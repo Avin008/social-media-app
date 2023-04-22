@@ -1,8 +1,16 @@
+import Image from "next/image";
+
 const Navbar = () => {
   return (
-    <nav className="h-20 flex justify-between top-0 items-center px-10 fixed left-0 right-0">
-      <div>
-        <span className="text-brand text-4xl font-semibold">
+    <nav className="fixed left-0 right-0 top-0 flex h-20 items-center justify-between px-10">
+      <div className="flex items-center gap-2">
+        <Image
+          src="/brand.png"
+          width={30}
+          height={30}
+          alt=""
+        />
+        <span className="text-xl font-semibold text-white">
           Picco
         </span>
       </div>
