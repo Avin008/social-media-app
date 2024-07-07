@@ -121,7 +121,7 @@ const LoginForm = ({
             )}
           </button>
           <span className="mt-2 text-center text-gray-300">
-            Don't have an account?{" "}
+            Don&apost have an account?{" "}
             <button
               type="button"
               className="font-semibold text-white hover:underline hover:underline-offset-2"
