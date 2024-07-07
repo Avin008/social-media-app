@@ -9,33 +9,26 @@ import { useState } from "react";
 type CurrentForm = "login-form" | "signup-form";
 
 export default function Home() {
-  const [currentForm, setCurrentForm] =
-    useState<CurrentForm>("login-form");
+  const [currentForm, setCurrentForm] = useState<CurrentForm>("login-form");
 
   const changeFormHandler = () => {
     setCurrentForm((currentForm) =>
-      currentForm === "login-form"
-        ? "signup-form"
-        : "login-form"
+      currentForm === "login-form" ? "signup-form" : "login-form"
     );
   };
 
   return (
-    <main className="flex h-screen items-center bg-background">
+    <main className="flex h-screen items-center bg-background lg:flex-row">
       <Navbar />
-      <div className="grid w-full grid-cols-2">
-        <div className="flex items-center justify-center">
+      <div className="flex w-full flex-col lg:flex-row">
+        <div className="hidden w-full items-center justify-center p-4 lg:flex lg:w-1/2">
           <Banner />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex w-full items-center justify-center p-4 lg:w-1/2">
           {currentForm === "login-form" ? (
-            <LoginForm
-              changeFormHandler={changeFormHandler}
-            />
+            <LoginForm changeFormHandler={changeFormHandler} />
           ) : (
-            <SignupForm
-              changeFormHandler={changeFormHandler}
-            />
+            <SignupForm changeFormHandler={changeFormHandler} />
           )}
         </div>
       </div>

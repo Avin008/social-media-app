@@ -18,12 +18,13 @@ const SignupForm = ({
 }: {
   changeFormHandler: () => void;
 }) => {
-  const [signupCredentials, setSignupCredentials] =
-    useState<SignupCredentials>({
+  const [signupCredentials, setSignupCredentials] = useState<SignupCredentials>(
+    {
       fullname: "",
       email: "",
       password: "",
-    });
+    }
+  );
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,9 +34,7 @@ const SignupForm = ({
     }
   }, []);
 
-  const inputHandler = (
-    e: React.SyntheticEvent<HTMLInputElement>
-  ) => {
+  const inputHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setSignupCredentials((prev) => ({
       ...prev,
@@ -75,20 +74,20 @@ const SignupForm = ({
   };
 
   return (
-    <div className="border border-[#3F3D56] shadow-md rounded-md pb-5 h-fit mx-auto w-[70%]">
-      <h1 className="text-2xl text-center mt-5 text-white">
+    <div className="mx-auto h-fit w-full max-w-sm rounded-lg border border-[#3F3D56] p-4 shadow-md md:max-w-md lg:max-w-lg">
+      <h1 className="mt-4 text-center text-2xl font-bold text-white">
         Sign Up
       </h1>
-      <form
-        onSubmit={formHandler}
-        className="text-white space-y-5 mt-5 px-5"
-      >
+      <form onSubmit={formHandler} className="mt-4 space-y-4 text-white">
         <div className="flex flex-col gap-2">
-          <label id="email">Full Name</label>
+          <label htmlFor="fullname" className="text-lg font-medium">
+            Full Name
+          </label>
           <input
-            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
+            className="rounded-md border border-gray-400 bg-transparent p-2 text-[#C2E1E8] placeholder:text-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand"
             type="text"
             name="fullname"
+            id="fullname"
             placeholder="John Doe"
             ref={inputRef}
             onChange={inputHandler}
@@ -97,24 +96,29 @@ const SignupForm = ({
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label id="email">Email</label>
+          <label htmlFor="email" className="text-lg font-medium">
+            Email
+          </label>
           <input
-            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
+            className="rounded-md border border-gray-400 bg-transparent p-2 text-[#C2E1E8] placeholder:text-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand"
             type="email"
             name="email"
+            id="email"
             placeholder="johndoe@gmail.com"
             onChange={inputHandler}
             value={signupCredentials.email}
             required
           />
         </div>
-
         <div className="flex flex-col gap-2">
-          <label id="email">Password</label>
+          <label htmlFor="password" className="text-lg font-medium">
+            Password
+          </label>
           <input
-            className="p-2 px-3 placeholder:text-gray-500 bg-transparent border border-gray-400 text-[#C2E1E8] rounded-md"
+            className="rounded-md border border-gray-400 bg-transparent p-2 text-[#C2E1E8] placeholder:text-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand"
             type="password"
             name="password"
+            id="password"
             placeholder="**********"
             onChange={inputHandler}
             value={signupCredentials.password}
@@ -124,17 +128,21 @@ const SignupForm = ({
         <div className="flex flex-col gap-3">
           <button
             disabled={isLoading}
-            className="bg-brand flex items-center justify-center shadow-sm p-2 font-bold rounded-md text-white"
+            className="hover:bg-brand-dark flex items-center justify-center rounded-md bg-brand p-2 font-bold text-white shadow-md transition duration-300 ease-in-out disabled:opacity-50"
           >
             {isLoading ? (
-              <ClipLoader color="white" size={22} />
+              <div className="flex items-center justify-center gap-2">
+                <ClipLoader color="white" size={22} />{" "}
+                <span>please wait. it takes a while</span>
+              </div>
             ) : (
               "SIGN UP"
             )}
           </button>
-          <span className="mt-2 text-gray-300">
-            Already had an Account?{" "}
+          <span className="mt-2 text-center text-gray-300">
+            Already have an Account?{" "}
             <button
+              type="button"
               className="font-semibold text-white hover:underline hover:underline-offset-2"
               onClick={changeFormHandler}
             >
