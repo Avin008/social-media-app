@@ -80,18 +80,22 @@ const SignupForm = ({
         <h1 className="text-3xl font-bold">Create an account</h1>
         <p className="text-muted-foreground">Sign up to get started</p>
       </div>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={formHandler}>
         <div>
           <label
-            htmlFor="username"
+            htmlFor="fullname"
             className="block text-sm font-medium text-gray-700"
           >
-            Username
+            Full Name
           </label>
           <input
-            id="username"
+            id="fullname"
             type="text"
-            placeholder="Your username"
+            placeholder="Your fullname"
+            name="fullname"
+            value={signupCredentials.fullname}
+            onChange={inputHandler}
+            ref={inputRef}
             required
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
           />
@@ -105,8 +109,11 @@ const SignupForm = ({
           </label>
           <input
             id="email"
+            name="email"
             type="email"
             placeholder="m@example.com"
+            value={signupCredentials.email}
+            onChange={inputHandler}
             required
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
           />
@@ -120,7 +127,10 @@ const SignupForm = ({
           </label>
           <input
             id="password"
+            name="password"
             type="password"
+            value={signupCredentials.password}
+            onChange={inputHandler}
             required
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
           />
@@ -129,7 +139,7 @@ const SignupForm = ({
           type="submit"
           className="hover:bg-primary-dark w-full rounded-md bg-primary px-4 py-2 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
-          Sign up
+          {isLoading ? "please wait. it takes a while" : "Sign up"}
         </button>
       </form>
       <div className="text-center text-sm text-muted-foreground">
