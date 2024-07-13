@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
+import { Button } from "./ui/button";
 
 type LoginCredentials = {
   email: string;
@@ -72,66 +73,67 @@ const LoginForm = ({
   };
 
   return (
-    <div className="mx-auto h-fit w-full max-w-sm rounded-lg border border-[#3F3D56] pb-6 shadow-lg md:max-w-md lg:max-w-lg">
-      <h1 className="mt-6 text-center text-3xl font-bold text-white">Login</h1>
-      <form onSubmit={formHandler} className="mt-6 space-y-6 px-6 text-white">
-        <div className="flex flex-col gap-3">
-          <label htmlFor="email" className="text-lg font-medium">
+    <div className="w-full max-w-md space-y-4">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold">Welcome back!</h1>
+        <p className="text-muted-foreground">
+          Sign in to your account to continue
+        </p>
+      </div>
+      <form className="space-y-4" onSubmit={formHandler}>
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <input
-            className="rounded-md border border-gray-400 bg-transparent p-3 text-[#C2E1E8] placeholder:text-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand"
-            type="email"
             id="email"
+            type="email"
+            placeholder="m@example.com"
             name="email"
-            placeholder="johndoe@gmail.com"
             onChange={inputHandler}
             value={loginCredentials.email}
             ref={inputRef}
             required
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
           />
         </div>
-        <div className="flex flex-col gap-3">
-          <label htmlFor="password" className="text-lg font-medium">
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
-            className="rounded-md border border-gray-400 bg-transparent p-3 text-[#C2E1E8] placeholder:text-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-brand"
-            type="password"
             id="password"
+            type="password"
             name="password"
-            placeholder="**********"
-            onChange={inputHandler}
             value={loginCredentials.password}
+            onChange={inputHandler}
             required
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
           />
         </div>
-        <div className="flex flex-col gap-4">
-          <button
-            disabled={isLoading}
-            className="hover:bg-brand-dark flex items-center justify-center rounded-md bg-brand p-3 font-bold text-white shadow-md transition duration-300 ease-in-out disabled:opacity-50"
-          >
-            {isLoading ? (
-              <div className="flex items-center justify-center gap-2">
-                <ClipLoader color="white" size={22} />{" "}
-                <span>please wait. it takes a while</span>
-              </div>
-            ) : (
-              "LOGIN"
-            )}
-          </button>
-          <span className="mt-2 text-center text-gray-300">
-            Don&apos;t have an account?{" "}
-            <button
-              type="button"
-              className="font-semibold text-white hover:underline hover:underline-offset-2"
-              onClick={changeFormHandler}
-            >
-              Join Now
-            </button>
-          </span>
-        </div>
+        <button
+          type="submit"
+          className="hover:bg-primary-dark w-full rounded-md bg-primary px-4 py-2 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          {!isLoading ? "Sign in" : "please wait. it takes a while"}
+        </button>
       </form>
+      <div className="text-center text-sm text-muted-foreground">
+        Don't have an account?{" "}
+        <Button
+          onClick={() => changeFormHandler()}
+          variant="link"
+          className="p-0 underline underline-offset-4"
+        >
+          Register
+        </Button>
+      </div>
     </div>
   );
 };
