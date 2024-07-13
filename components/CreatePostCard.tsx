@@ -6,18 +6,12 @@ import { toast } from "react-hot-toast";
 import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 
-const CreatePostCard = ({
-  userData,
-}: {
-  userData: UserType;
-}) => {
+const CreatePostCard = ({ userData }: { userData: UserType }) => {
   const [post, setPost] = useState<{ text: string }>({
     text: "",
   });
 
-  const inputHandler = (
-    e: React.SyntheticEvent<HTMLTextAreaElement>
-  ) => {
+  const inputHandler = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.currentTarget;
     setPost((prev) => ({ ...prev, [name]: value }));
   };
@@ -26,10 +20,7 @@ const CreatePostCard = ({
 
   const queryClient = useQueryClient();
 
-  const {
-    isLoading: isCreatingPostLoading,
-    mutate: createPost,
-  } = useMutation(
+  const { isLoading: isCreatingPostLoading, mutate: createPost } = useMutation(
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/create`,
@@ -77,7 +68,7 @@ const CreatePostCard = ({
           accept=".png,.jpg,.jpeg"
         />
         <button
-          className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
+          className="flex items-center justify-center rounded-full bg-primary px-4 py-1 text-sm font-medium text-white shadow-md"
           disabled={isCreatingPostLoading}
           onClick={() => createPost()}
         >

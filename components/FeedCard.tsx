@@ -4,11 +4,7 @@ import UserInfo from "./userInfo";
 import PostImage from "./PostImage";
 import PostActions from "./PostActions";
 import UserComment from "./UserComment";
-import {
-  useQueryClient,
-  useMutation,
-  useQuery,
-} from "react-query";
+import { useQueryClient, useMutation, useQuery } from "react-query";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useState } from "react";
@@ -17,8 +13,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const FeedCard = ({ post }: { post: PostType }) => {
-  const [togglePostOptions, setTogglePostOptions] =
-    useState<boolean>(false);
+  const [togglePostOptions, setTogglePostOptions] = useState<boolean>(false);
 
   const [toggleEditPostModal, setToggleEditPostModal] =
     useState<boolean>(false);
@@ -50,16 +45,16 @@ const FeedCard = ({ post }: { post: PostType }) => {
     }
   );
 
-  const {
-    data: commentsData,
-    isLoading: isCommentsDataLoading,
-  } = useQuery(["comments"], async () => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/post/comments`,
-      { token, post }
-    );
-    return res.data.data.comments as CommentType[];
-  });
+  const { data: commentsData, isLoading: isCommentsDataLoading } = useQuery(
+    ["comments"],
+    async () => {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/post/comments`,
+        { token, post }
+      );
+      return res.data.data.comments as CommentType[];
+    }
+  );
 
   const { mutate: unfollow } = useMutation(
     async () => {
@@ -112,9 +107,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
           <span>
             <button
               className="rounded-full p-1 hover:bg-[#282C37] active:bg-[#282C50]"
-              onClick={() =>
-                setTogglePostOptions((prev) => !prev)
-              }
+              onClick={() => setTogglePostOptions((prev) => !prev)}
             >
               <AiOutlineEllipsis size={20} />
             </button>
@@ -125,10 +118,8 @@ const FeedCard = ({ post }: { post: PostType }) => {
                 {post?.author?._id == _id && (
                   <li>
                     <button
-                      className="w-full p-1 px-2 hover:bg-brand"
-                      onClick={() =>
-                        closeUpdatePostHandler()
-                      }
+                      className="w-full p-1 px-2 hover:bg-primary"
+                      onClick={() => closeUpdatePostHandler()}
                     >
                       edit post
                     </button>
@@ -137,7 +128,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
                 {post?.author?._id === _id && (
                   <li>
                     <button
-                      className="w-full p-1 hover:bg-brand"
+                      className="w-full p-1 hover:bg-primary"
                       onClick={() => deletePost()}
                     >
                       remove post
@@ -147,7 +138,7 @@ const FeedCard = ({ post }: { post: PostType }) => {
                 {post?.author?.followers.includes(_id) && (
                   <li>
                     <button
-                      className="w-full p-1 px-2 hover:bg-brand"
+                      className="w-full p-1 px-2 hover:bg-primary"
                       onClick={() => {
                         unfollow();
                       }}
@@ -157,12 +148,10 @@ const FeedCard = ({ post }: { post: PostType }) => {
                   </li>
                 )}
                 {post?.author?._id !== _id &&
-                  !post?.author?.followers?.includes(
-                    _id
-                  ) && (
+                  !post?.author?.followers?.includes(_id) && (
                     <li>
                       <button
-                        className="w-full p-1 px-2 hover:bg-brand"
+                        className="w-full p-1 px-2 hover:bg-primary"
                         onClick={() => {
                           follow();
                         }}
@@ -182,24 +171,16 @@ const FeedCard = ({ post }: { post: PostType }) => {
       <div className="flex flex-col gap-2">
         <span className="text-sm">Comments</span>
         {commentsData
-          ?.filter(
-            (comment: CommentType) =>
-              comment?.post_id === post?._id
-          )
+          ?.filter((comment: CommentType) => comment?.post_id === post?._id)
           .map((comment: CommentType) => (
-            <UserComment
-              key={comment?._id}
-              comment={comment}
-            />
+            <UserComment key={comment?._id} comment={comment} />
           ))}
       </div>
       {toggleEditPostModal && (
         <div className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center bg-black/60">
           <div className="w-[45%] rounded-md bg-[#282C37] p-2">
             <UpdatePostCard
-              closeUpdatePostHandler={
-                closeUpdatePostHandler
-              }
+              closeUpdatePostHandler={closeUpdatePostHandler}
               post={post}
             />
           </div>

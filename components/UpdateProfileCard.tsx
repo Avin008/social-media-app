@@ -14,17 +14,13 @@ const UpdateUserProfileCard = ({
   userData: UserType;
   toggleProfileCardHandler: () => void;
 }) => {
-  const [updateUserData, setUpdateUserData] =
-    useState<any>(userData);
+  const [updateUserData, setUpdateUserData] = useState<any>(userData);
 
   const token = useAuthStore((store) => store.token);
 
-  const [updateProfilePic, setUpdateProfilePic] =
-    useState<FileList | null>();
+  const [updateProfilePic, setUpdateProfilePic] = useState<FileList | null>();
 
-  const inputHandler = (
-    e: React.SyntheticEvent<HTMLInputElement>
-  ) => {
+  const inputHandler = (e: React.SyntheticEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
 
     setUpdateUserData((prev: any) => ({
@@ -37,10 +33,7 @@ const UpdateUserProfileCard = ({
 
   const queryClient = useQueryClient();
 
-  const {
-    mutate: updateProfile,
-    isLoading: isProfileUpdating,
-  } = useMutation(
+  const { mutate: updateProfile, isLoading: isProfileUpdating } = useMutation(
     async () => {
       const formData = new FormData();
       formData.append("fullname", updateUserData.fullname);
@@ -114,9 +107,7 @@ const UpdateUserProfileCard = ({
           placeholder="johndoe776"
           type="file"
           ref={imgUploadRef}
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement>
-          ) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             // @ts-ignore
             setUpdateProfilePic(e.currentTarget.files[0]);
           }}
@@ -150,7 +141,7 @@ const UpdateUserProfileCard = ({
       </div>
       <div className="flex w-full flex-col gap-2">
         <button
-          className="flex w-full items-center justify-center rounded-md bg-brand p-2 text-white"
+          className="bg-brand flex w-full items-center justify-center rounded-md bg-primary p-2 text-white"
           onClick={() => {
             updateProfile();
           }}
@@ -162,7 +153,7 @@ const UpdateUserProfileCard = ({
           )}
         </button>
         <button
-          className="w-full rounded-md border border-brand p-2 font-semibold text-brand"
+          className="border-brand text-brand w-full rounded-md border p-2 font-semibold"
           onClick={toggleProfileCardHandler}
         >
           Cancel

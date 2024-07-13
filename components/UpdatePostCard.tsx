@@ -20,9 +20,7 @@ const UpdatePostCard = ({
 
   const queryClient = useQueryClient();
 
-  const inputHandler = (
-    e: React.SyntheticEvent<HTMLTextAreaElement>
-  ): void => {
+  const inputHandler = (e: React.SyntheticEvent<HTMLTextAreaElement>): void => {
     const { name, value } = e.currentTarget;
 
     setUpdatePost((prev: any) => ({
@@ -31,10 +29,7 @@ const UpdatePostCard = ({
     }));
   };
 
-  const {
-    isLoading: isUpdatePostLoading,
-    mutate: updatePost,
-  } = useMutation(
+  const { isLoading: isUpdatePostLoading, mutate: updatePost } = useMutation(
     async () => {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/post/update`,
@@ -78,21 +73,16 @@ const UpdatePostCard = ({
         </div>
       </div>
       <div className="flex justify-end gap-2 p-2">
-        <input
-          className="hidden"
-          type="file"
-          name=""
-          id=""
-        />
+        <input className="hidden" type="file" name="" id="" />
         <button
           onClick={() => updatePost()}
-          className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
+          className="rounded-full bg-primary px-4 py-1 text-sm font-medium text-white shadow-md"
         >
           update post
         </button>
         <button
           onClick={closeUpdatePostHandler}
-          className="rounded-full border border-brand px-4 py-1 text-sm font-medium text-brand shadow-md"
+          className="border-brand text-brand rounded-full border px-4 py-1 text-sm font-medium shadow-md"
         >
           cancel
         </button>
