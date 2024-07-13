@@ -80,14 +80,14 @@ const UserCard = ({
           </button>
         ) : userData?.followers.includes(userId) ? (
           <button
-            className="bg-brand rounded-full px-4 py-1 text-sm font-medium text-white shadow-md"
+            className="rounded-full bg-primary px-4 py-1 text-sm font-medium text-white shadow-md"
             onClick={() => unfollow()}
           >
             unfollow
           </button>
         ) : (
           <button
-            className="bg-brand rounded-full px-4 py-1 text-sm font-medium text-white shadow-md"
+            className="rounded-full bg-primary px-4 py-1 text-sm font-medium text-white shadow-md"
             onClick={() => follow()}
           >
             follow
