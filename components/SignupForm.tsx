@@ -91,7 +91,7 @@ const SignupForm = ({
           <input
             id="fullname"
             type="text"
-            placeholder="Your fullname"
+            placeholder="Your full name"
             name="fullname"
             value={signupCredentials.fullname}
             onChange={inputHandler}
@@ -111,7 +111,7 @@ const SignupForm = ({
             id="email"
             name="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="johndoe@example.com"
             value={signupCredentials.email}
             onChange={inputHandler}
             required

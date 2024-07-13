@@ -91,7 +91,7 @@ const LoginForm = ({
           <input
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="johndoe@gmail.com"
             name="email"
             onChange={inputHandler}
             value={loginCredentials.email}
