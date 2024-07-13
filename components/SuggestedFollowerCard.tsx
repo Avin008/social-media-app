@@ -45,12 +45,8 @@ const SuggestedFollowerCard = ({
         <Avatar image={suggestedUser?.profilePic} />
         <div className="flex flex-col leading-5">
           <span
-            className="cursor-pointer text-white hover:text-brand"
-            onClick={() =>
-              router.push(
-                `/feeds/profile/${suggestedUser?._id}`
-              )
-            }
+            className="hover:text-brand cursor-pointer text-white"
+            onClick={() => router.push(`/feeds/profile/${suggestedUser?._id}`)}
           >
             {suggestedUser?.fullname}
           </span>
@@ -61,7 +57,7 @@ const SuggestedFollowerCard = ({
       </div>
       <button
         onClick={() => mutate()}
-        className="rounded-full bg-brand px-4 py-1 text-sm font-medium text-white shadow-md"
+        className="rounded-full bg-primary px-4 py-1 text-sm font-medium text-white shadow-md"
       >
         follow
       </button>
